@@ -1,0 +1,160 @@
+/* Login  */
+
+.wlcm-head {
+  font-size: 2.5rem;
+}
+
+.wlcm-head span {
+  background: linear-gradient(45deg, #b700ff, #7b3df6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #0000;
+  font-weight: 700;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7), -10px -10px 30px rgba(255, 255, 255, 0.1);
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 0.4em;
+  background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2));
+  border-radius: 25px;
+}
+
+#heading {
+  text-align: center;
+  margin: 2em;
+  color: rgb(255, 255, 255);
+  font-size: 1.2em;
+}
+
+.field {
+  margin: 0.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border-radius: 15px;
+  padding: 1px;
+  border: 1px solid transparent;
+  outline: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: inset 2px 5px 10px rgb(5, 5, 5, 0.7);
+}
+
+.input-field {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #d3d3d3;
+  padding: 0.6em 7rem 0.6rem 0.6rem;
+}
+
+.field:hover {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.login-btn {
+  width: 6.5em;
+  padding: 10px;
+  margin: 0.5em;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 0.625em;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.login-btn:hover {
+  color: black;
+}
+
+.login-btn:after {
+  content: "";
+  background: white;
+  position: absolute;
+  z-index: -1;
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+  transition: all 0.5s;
+}
+
+.login-btn:hover:after {
+  transform: skewX(-45deg) scale(1, 1);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/**/
+
+.card {
+  color: #fff;
+  border-radius: 2em;
+  padding: 10px;
+  background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2));
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7), -10px -10px 60px rgba(255, 255, 255, 0.1);
+}
+
+.profileimage {
+  background-color: transparent;
+  border: none;
+  margin-top: 20px;
+  border-radius: 5em;
+  width: 100px;
+  height: 100px;
+}
+
+.pfp {
+  border-radius: 35em;
+  fill: white;
+}
+
+.Name {
+  color: white;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  padding: 15px;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.socialbar {
+  background-color: #191919;
+  border-radius: 3em;
+  width: 90%;
+  padding: 14px;
+  margin-top: 15px;
+  color: white;
+  box-shadow: 3px 3px 15px rgb(0, 0, 0), -3px -3px 15px rgb(58, 58, 58);
+}
+
+.card a {
+  transition: 0.4s;
+  color: white;
+}
+
+#github:hover {
+  color: #c9510c;
+}
+
+#instagram:hover {
+  color: #d62976;
+}
+
+#facebook:hover {
+  color: #3b5998;
+}
+
+#twitter:hover {
+  color: #00acee;
+}

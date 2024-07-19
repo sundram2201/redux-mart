@@ -1,0 +1,494 @@
+/* Tab */
+.component-title {
+  width: 100%;
+  position: absolute;
+  z-index: 999;
+  top: 30px;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #888;
+  text-align: center;
+}
+
+.tab-container {
+  position: relative;
+  width: fit-content;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  padding: 2px;
+
+  background-color: #dadadb;
+  border-radius: 9px;
+}
+
+.indicator {
+  content: "";
+  width: 130px;
+  height: 28px;
+  background: #ffffff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 9;
+  border: 0.5px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 7px;
+  transition: all 0.2s ease-out;
+}
+
+.tab {
+  width: 130px;
+  height: 28px;
+  position: absolute;
+  z-index: 99;
+  outline: none;
+  opacity: 0;
+}
+
+.tab_label {
+  width: 130px;
+  height: 28px;
+  position: relative;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.tab--1:checked ~ .indicator {
+  left: 2px;
+}
+
+.tab--2:checked ~ .indicator {
+  left: calc(130px + 2px);
+}
+
+.tab--3:checked ~ .indicator {
+  left: calc(130px * 2 + 2px);
+}
+.tab--4:checked ~ .indicator {
+  left: calc(130px * 3 + 2px);
+}
+
+/* Product list  */
+
+/* before adding the img to the div with the 
+"card-img" class, remove css styles 
+.card-img .img::before and .card-img .img::after,
+then set the desired styles for .card-img. */
+.prod-card {
+  --font-color: #fefefe;
+  --font-color-sub: #7e7e7e;
+  --bg-color: #111;
+  --main-color: #fefefe;
+  --main-focus: #2d8cf0;
+  /* width: 230px;
+  height: 300px; */
+  background: var(--bg-color);
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+  gap: 10px;
+
+  transition: 0.2s all;
+}
+
+.prod-card:hover {
+  box-shadow: 0px 0px 0px black;
+  transform: translate(2px, 2px);
+}
+
+.card-img {
+  transition: all 0.5s;
+  display: flex;
+  justify-content: center;
+}
+
+.card-img .img {
+  /* delete */
+  transform: scale(1);
+  position: relative;
+  box-sizing: border-box;
+  width: 100px;
+  height: 100px;
+  border-top-left-radius: 80px 50px;
+  border-top-right-radius: 80px 50px;
+  border: 2px solid black;
+  background-color: #228b22;
+  background-image: linear-gradient(
+    to top,
+    transparent 10px,
+    rgba(0, 0, 0, 0.3) 10px,
+    rgba(0, 0, 0, 0.3) 13px,
+    transparent 13px
+  );
+}
+
+.card-img .img::before {
+  /* delete */
+  content: "";
+  position: absolute;
+  width: 65px;
+  height: 110px;
+  margin-left: -32.5px;
+  left: 50%;
+  bottom: -4px;
+  background-repeat: no-repeat;
+  background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 30%, transparent 30%),
+    linear-gradient(to top, transparent 17px, rgba(0, 0, 0, 0.3) 17px, rgba(0, 0, 0, 0.3) 20px, transparent 20px),
+    linear-gradient(to right, black 2px, transparent 2px), linear-gradient(to left, black 2px, transparent 2px),
+    linear-gradient(to top, black 2px, #228b22 2px);
+  background-size: 60% 10%, 100% 100%, 100% 65%, 100% 65%, 100% 50%;
+  background-position: center 3px, center bottom, center bottom, center bottom, center bottom;
+  border-radius: 0 0 4px 4px;
+  z-index: 2;
+}
+
+.card-img .img::after {
+  /* delete */
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  margin-left: -14px;
+  left: 50%;
+  top: -13px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(80deg, #ffc0cb 45%, transparent 45%),
+    linear-gradient(-175deg, #ffc0cb 45%, transparent 45%),
+    linear-gradient(80deg, rgba(0, 0, 0, 0.2) 51%, rgba(0, 0, 0, 0) 51%),
+    linear-gradient(-175deg, rgba(0, 0, 0, 0.2) 51%, rgba(0, 0, 0, 0) 51%),
+    radial-gradient(circle at center, #ffa6b6 45%, rgba(0, 0, 0, 0.2) 45%, rgba(0, 0, 0, 0.2) 52%, rgba(0, 0, 0, 0) 52%),
+    linear-gradient(45deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.2) 48%, rgba(0, 0, 0, 0.2) 52%, rgba(0, 0, 0, 0) 52%),
+    linear-gradient(65deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.2) 48%, rgba(0, 0, 0, 0.2) 52%, rgba(0, 0, 0, 0) 52%),
+    linear-gradient(22deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.2) 48%, rgba(0, 0, 0, 0.2) 54%, rgba(0, 0, 0, 0) 54%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 75%, 100% 95%, 100% 60%;
+  background-position: center center;
+  border-top-left-radius: 120px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 70px;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--font-color);
+}
+
+.card-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--font-color-sub);
+}
+
+.card-divider {
+  width: 100%;
+  border: 1px solid var(--main-color);
+  border-radius: 50px;
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card-price {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--font-color);
+}
+
+.card-price span {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--font-color-sub);
+}
+
+.card-btn {
+  height: 35px;
+  background: var(--main-color);
+  border: 2px solid var(--main-color);
+  border-radius: 5px;
+  padding: 0 15px;
+  transition: all 0.3s;
+}
+
+.card-btn svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--bg-color);
+  transition: all 0.3s;
+}
+
+.card-img:hover {
+  transform: translateY(-3px);
+}
+
+.card-btn:hover {
+  border: 2px solid white;
+  background-color: black;
+}
+
+.card-btn:hover svg {
+  fill: white;
+}
+
+.card-btn:active {
+  transform: translateY(3px);
+}
+
+.con-like {
+  --red: rgb(255, 50, 50);
+  position: relative;
+  width: 25px;
+  height: 25px;
+}
+
+.con-like .like {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+  left: 0;
+}
+
+.con-like .checkmark {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.con-like .outline,
+.con-like .filled {
+  fill: var(--red);
+  position: absolute;
+}
+
+.con-like .filled {
+  animation: kfr-filled 0.5s;
+  display: none;
+}
+
+.con-like .celebrate {
+  position: absolute;
+  animation: kfr-celebrate 0.5s;
+  animation-fill-mode: forwards;
+  display: none;
+}
+
+.con-like .poly {
+  stroke: var(--red);
+  fill: var(--red);
+}
+
+.con-like .like:checked ~ .checkmark .filled {
+  display: block;
+}
+
+.con-like .like:checked ~ .checkmark .celebrate {
+  display: block;
+}
+
+@keyframes kfr-filled {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes kfr-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+    display: none;
+  }
+}
+
+/*Add product */
+
+.edit-avtar {
+  position: relative;
+  margin-top: 1.5rem;
+  /* width: 8rem; */
+}
+.edit-avtar .edit-pen svg {
+  /* position: absolute; */
+  /* top: 2rem; */
+  /* right: -0.5rem; */
+  padding: 0.5rem 0;
+  margin: 3px 0;
+  background: #ffff;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+.img-field {
+  margin: 0.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border-radius: 15px;
+  padding: 1px;
+  border: 1px solid transparent;
+  outline: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: inset 2px 5px 10px rgb(5, 5, 5, 0.7);
+}
+
+.del-btn {
+  background-color: red !important;
+  color: white;
+  fill: white;
+}
+.edit-avtar img {
+  border-radius: 50%;
+  width: 100%;
+}
+
+.edit-pen:hover {
+  box-shadow: 0px 4px 7px -3px rgb(0 0 0 / 70%);
+  transform: translate(0px, -1px);
+}
+.edit-pen {
+  transition: 0.2s all;
+}
+
+.edit-avtar img {
+  border: 5px solid white;
+  box-shadow: 0px 1px 6px rgb(0 0 0 / 20%);
+}
+
+.edit-avtar .edit-pen {
+  top: 0;
+}
+
+.radio-input {
+  display: flex;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  justify-content: space-between;
+}
+
+.radio-input input[type="radio"] {
+  display: none;
+}
+
+.radio-input label {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #212121;
+  border-radius: 5px;
+  /* margin-right: 12px; */
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.radio-input label:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  transition: all 0.3s ease-in-out;
+}
+
+.radio-input input[type="radio"]:checked + label:before {
+  background-color: green;
+  top: 0;
+}
+
+.radio-input input[type="radio"]:checked + label {
+  background-color: royalblue;
+  color: #fff;
+  border-color: rgb(129, 235, 129);
+  animation: radio-translate 0.5s ease-in-out;
+}
+
+@keyframes radio-translate {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.productContainer {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.prodImg,
+.prodDesc {
+  flex: 1 1 0%;
+}
+.thumbnailImage {
+  display: inline-block;
+}
+.thumbnailImage img {
+  display: inline-block;
+  width: 10%;
+}
