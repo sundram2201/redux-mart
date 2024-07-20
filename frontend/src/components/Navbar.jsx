@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../../public/reduxMart-logo2.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Navbar = () => {
   return hasToken ? (
     <div>
       <nav
-        className='navbar navbar-expand-lg p-2 fixed-top'
+        className='navbar navbar-expand-lg px-4 fixed-top'
         style={{
           boxShadow: "0px 2px 28px rgba(0,0,0,0.4)",
           background: "rgba(255,255,255,0.1)",
@@ -19,7 +20,8 @@ const Navbar = () => {
           backdropFilter: "blur(5px)",
         }}>
         <Link to='/' className='navbar-brand wlcm-head'>
-          <span>ReduxMart</span>
+          <img src={logo} alt='reduxMart logo' />
+          {/* <span>redux</span> */}
         </Link>
 
         <div className='collapse navbar-collapse justify-content-between' id='navbarSupportedContent'>
