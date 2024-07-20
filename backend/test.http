@@ -8,9 +8,9 @@ Content-Type: application/json
 {
 
    "fullname" :"sundram chauhan",
-   "username" :"rd",
-   "email" :"rdx@gm.com",
+   "username" :"redux_mart",
+   "email" :"test@redux.com",
    "contact" :"1234567890",
-   "password": "000"
+   "password": "123"
  
 }
