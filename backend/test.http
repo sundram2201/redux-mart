@@ -1,1 +1,16 @@
 GET "http://localhost:3002/api/v1/user/get-user" HTTP/1.1
+
+
+### POST request to login-user
+POST http://localhost:3002/api/v1/user/create-user
+Content-Type: application/json
+
+{
+
+   "fullname" :"sundram chauhan",
+   "username" :"rd",
+   "email" :"rdx@gm.com",
+   "contact" :"1234567890",
+   "password": "000"
+ 
+}

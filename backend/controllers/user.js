@@ -5,7 +5,6 @@ require("dotenv").config();
 const bcrypt = require("bcryptjs");
 
 exports.createUser = async (req, res) => {
-  console.log("Inside createUser function");
   const { fullname, username, email, contact, password } = req.body;
 
   try {
