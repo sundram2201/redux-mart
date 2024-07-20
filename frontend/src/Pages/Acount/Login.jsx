@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../components/Slices/UserSlice";
-import { useState } from "react";
+import logo from "../../../public/reduxMart-logo2.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,12 +40,13 @@ const Login = () => {
   const { handleSubmit, values, handleChange, touched, errors } = formik;
   return (
     <>
-      <p className='wlcm-head' style={{ paddingTop: "7rem" }}>
-        Welcome to <span>ReduxMart</span>
+      <p className='login-logo py-5'>
+        {/* Welcome to <span>ReduxMart</span> */}
+        <img src={logo} width={"20%"} />
       </p>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <form className='form' onSubmit={handleSubmit}>
-          <p id='heading'>Login here!</p>
+          <p id='heading'>Login</p>
           <div className='field'>
             <input
               value={values.username}
