@@ -1,0 +1,19 @@
+{
+  "headers": [
+    {
+      "for": "*",
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "for": "*",
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET, POST, PUT, DELETE, OPTIONS"
+    },
+    {
+      "for": "*",
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Authorization"
+    }
+  ]
+}
