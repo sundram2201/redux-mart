@@ -6,7 +6,7 @@ const cors = require("cors");
 
 //middleware setup
 
-app.use(cors({ credentials: true }));
+app.use(cors());
 app.use(express.json());
 
 //routes
