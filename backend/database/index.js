@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Use environment variable for MongoDB URI
 // const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/reduxmart";
-const MONGO_URI = "mongodb+srv://redux-mart:goldy321@cluster0.mc7wuld.mongodb.net";
+const MONGO_URI = "mongodb+srv://redux-mart:goldy321@cluster0.mc7wuld.mongodb.net/reduxmart";
 
 const connectDB = async () => {
   try {
