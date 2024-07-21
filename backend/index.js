@@ -6,11 +6,18 @@ const cors = require("cors");
 
 //middleware setup
 
-app.use(cors());
-
 app.use(
   cors({
-    origin: "https://redux-mart.onrender.com",
+    origin: "https://your-frontend-domain.com",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
+
+app.options(
+  "*",
+  cors({
+    origin: "https://your-frontend-domain.com",
   })
 );
 app.use(express.json());
