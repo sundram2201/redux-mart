@@ -8,7 +8,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "https://your-frontend-domain.com",
+    origin: "https://redux-mart.onrender.com",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: "Content-Type,Authorization",
   })
@@ -17,7 +17,7 @@ app.use(
 app.options(
   "*",
   cors({
-    origin: "https://your-frontend-domain.com",
+    origin: "https://redux-mart.onrender.com",
   })
 );
 app.use(express.json());
