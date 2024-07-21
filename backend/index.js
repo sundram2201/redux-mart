@@ -10,7 +10,7 @@ app.use(cors());
 
 app.use(
   cors({
-    origin: "https://redux-mart.onrender.com", // Replace with your frontend URL
+    origin: "https://redux-mart.onrender.com",
   })
 );
 app.use(express.json());
