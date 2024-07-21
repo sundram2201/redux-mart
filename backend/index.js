@@ -8,6 +8,13 @@ const cors = require("cors");
 
 app.use(cors());
 
+app.use(
+  cors({
+    origin: "https://redux-mart.onrender.com" || "http://localhost:5173", // Default to localhost for development
+    credentials: true, // Allow cookies (if applicable)
+  })
+);
+
 app.use(express.json());
 
 app.use((req, res, next) => {
