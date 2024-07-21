@@ -7,6 +7,12 @@ const cors = require("cors");
 //middleware setup
 
 app.use(cors());
+
+app.use(
+  cors({
+    origin: "https://redux-mart.onrender.com", // Replace with your frontend URL
+  })
+);
 app.use(express.json());
 
 //routes
