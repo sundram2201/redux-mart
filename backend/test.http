@@ -2,15 +2,12 @@ GET "http://localhost:3002/api/v1/user/get-user" HTTP/1.1
 
 
 ### POST request to login-user
-POST http://localhost:3002/api/v1/user/create-user
+POST https://redux-mart-server.onrender.com/api/v1/user/login-user
 Content-Type: application/json
 
 {
 
-   "fullname" :"sundram chauhan",
    "username" :"redux_mart",
-   "email" :"test@redux.com",
-   "contact" :"1234567890",
    "password": "123"
  
 }
