@@ -1,4 +1,5 @@
 const UserDB = require("../models/user");
+const CartDB = require("../models/cart");
 const jwt = require("jsonwebtoken"); // Import the library
 require("dotenv").config();
 
@@ -51,7 +52,34 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-exports.getUser = async () => {};
+exports.getUser = async (req, res) => {
+  try {
+    const userId = req.user;
+
+    // Fetch user data
+    const user = await UserDB.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Fetch the cart based on userId
+    const cart = await CartDB.findOne({ userId: userId }); // Use findOne instead of findById
+    const items = cart ? cart.items : [];
+
+    // Return user data along with cart items
+    return res.status(200).json({
+      message: "User fetched",
+      data: {
+        user: user,
+        cartItems: items,
+        itemCount: items.length,
+      },
+    });
+  } catch (err) {
+    console.error("Error fetching user data:", err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 async function generateAuthToken(userId) {
   const payload = { _id: userId }; // Include relevant user data in the payload

@@ -39,3 +39,15 @@ exports.AllProducts = async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve products" });
   }
 };
+
+exports.GetProductById = async (req, res) => {
+  try {
+    const productID = req.query.id;
+
+    const product = await ProductDB.findById({ _id: productID });
+
+    return res.status(200).json({ message: "Product fetched successfully", data: product });
+  } catch (err) {
+    return res.status(400).json({ message: "error while fetching data" });
+  }
+};

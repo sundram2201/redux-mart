@@ -10,7 +10,7 @@ app.use(cors());
 
 app.use(
   cors({
-    origin: "https://redux-mart.onrender.com" || "http://localhost:5173", // Default to localhost for development
+    origin: "http://localhost:5173" || "https://redux-mart.onrender.com", // Default to localhost for development
     credentials: true, // Allow cookies (if applicable)
   })
 );
@@ -24,12 +24,14 @@ app.use((req, res, next) => {
 //routes
 
 const UserRoute = require("./routes/user");
+const CartRoute = require("./routes/cart");
 const ProductRoute = require("./routes/product");
 
 app.use("/api/v1/user", UserRoute);
+app.use("/api/v1/cart", CartRoute);
 app.use("/api/v1/product", ProductRoute);
 
-app.get("/", (_, res) => res.send(`Welcom to port : ${port}`));
+app.get("/", (_, res) => res.send(`Welcome to port : ${port}`));
 
 // Error handling middleware
 app.use((err, req, res, next) => {

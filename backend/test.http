@@ -1,7 +1,7 @@
 GET "http://localhost:3002/api/v1/user/get-user" HTTP/1.1
 
 
-### POST request to login-user
+### POST request to create-user
 POST http://localhost:3002/api/v1/user/create-user
 Content-Type: application/json
 
@@ -10,7 +10,27 @@ Content-Type: application/json
    "fullname" :"sundram chauhan",
    "username" :"redux_mart",
    "email" :"test@redux.com",
-   "contact" :"1234567890",
+   "contact" :"1234567890000",
    "password": "123"
  
 }
+
+
+### POST request to login-user
+POST http://localhost:3002/api/v1/user/login-user
+Content-Type: application/json
+
+{
+
+   "username" :"redux_mart",
+   "password": "123"
+ 
+}
+
+
+
+
+
+
+
+
