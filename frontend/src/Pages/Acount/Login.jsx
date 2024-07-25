@@ -10,7 +10,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const [hasToken, setHasToken] = useState(null);
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -26,12 +25,11 @@ const Login = () => {
           localStorage.setItem("token", token);
           toast.dismiss(loadingToast);
           toast.success(res.data.message, { id: "loadingToastId" });
+          // dispatch(getUser(res.data));
           navigate("/");
-          dispatch(getUser(res.data));
         }
       } catch (err) {
         toast.dismiss(loadingToast);
-        console.log();
         toast.error(err?.code === "ERR_NETWORK" ? "No internet" : err.response.data.message, { id: "loadingToastId" });
       }
     },

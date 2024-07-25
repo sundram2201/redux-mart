@@ -20,3 +20,9 @@ export const FILEPOST = (EndPoint, data) => {
 export const GET = (EndPoint) => {
   return axios.get(BaseUrl + EndPoint);
 };
+
+export const GETBYTOKEN = (EndPoint) => {
+  return axios.get(BaseUrl + EndPoint, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+};

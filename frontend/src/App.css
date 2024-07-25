@@ -1,5 +1,12 @@
 body {
-  background-color: rgba(23, 23, 23, 0.1);
+  /* background-color: #0c0c0c !important; */
+  /* background-color: #0b1215 !important; */
+  /* background-color: #080e0e !important; */
+  /* background-color: #101720 !important; */
+  background-color: #171717 !important;
+  /* background-color: #011222 !important; */
+  /* background-color: #020d19 !important; */
+
   color: #fff;
 }
 
@@ -35,7 +42,7 @@ p {
   width: 10%;
 }
 .wlcm-head img {
-  width: 100%;
+  width: 80%;
 }
 
 @keyframes logo-spin {
@@ -54,6 +61,8 @@ p {
 }
 
 .prod-card {
+  background-color: #01080e;
+
   padding: 2em;
 }
 
@@ -145,7 +154,7 @@ p {
 .btn-cart:hover::after {
   visibility: visible;
   opacity: 1;
-  top: 25%;
+  top: -65%;
 }
 
 .quantity {
@@ -176,4 +185,22 @@ p {
   background: transparent !important;
   box-shadow: 5px 5px white;
   border: 2px solid white;
+}
+
+.MuiDrawer-paper,
+.css-hyum1k-MuiToolbar-root {
+  background: #2c2c2c !important;
+}
+
+.css-cveggr-MuiListItemIcon-root,
+.css-tlelie-MuiListItemText-root {
+  color: #fff !important;
+}
+
+.css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root {
+  margin: 0px 10px !important;
+  border-radius: 10px !important;
+}
+.css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root:hover {
+  background: linear-gradient(45deg, #7b3df6, #b700ff);
 }

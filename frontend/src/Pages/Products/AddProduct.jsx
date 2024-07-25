@@ -107,34 +107,36 @@ const AddProduct = () => {
 
   return (
     <>
-      <p className='wlcm-head' style={{ paddingTop: "7rem" }}>
+      <p className='wlcm-head w-100 text-white' style={{ padding: "5rem 0 3rem 0" }}>
         Want to add your own <span>Product?</span>
       </p>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <form className='form' onSubmit={formik.handleSubmit}>
           <p id='heading'>Add here!</p>
-          <div className='field'>
-            <input
-              name='name'
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              autoComplete='off'
-              placeholder='product name'
-              className='input-field'
-              type='text'
-            />
-          </div>
+          <div className='d-flex'>
+            <div className='field'>
+              <input
+                name='name'
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                autoComplete='off'
+                placeholder='Product name'
+                className='input-field'
+                type='text'
+              />
+            </div>
 
-          <div className='field'>
-            <input
-              name='price'
-              value={formik.values.price}
-              onChange={formik.handleChange}
-              autoComplete='off'
-              placeholder='price '
-              className='input-field'
-              type='text'
-            />
+            <div className='field'>
+              <input
+                name='price'
+                value={formik.values.price}
+                onChange={formik.handleChange}
+                autoComplete='off'
+                placeholder='Product price'
+                className='input-field'
+                type='text'
+              />
+            </div>
           </div>
 
           <div className='field'>
@@ -143,15 +145,18 @@ const AddProduct = () => {
               value={formik.values.desc}
               onChange={formik.handleChange}
               autoComplete='off'
-              placeholder='product description'
+              placeholder='Product description'
               className='input-field'
               type='text'></textarea>
           </div>
 
+          <label style={{ margin: "0.5rem 2rem" }} className='text-start text-white '>
+            Choose category :
+          </label>
           <div className='radio-input' style={{ margin: "0.5rem 2rem" }}>
-            <input onChange={formik.handleChange} name='category' value='women' id='value-1' type='radio' />
+            <input onChange={formik.handleChange} name='category' value='men' id='value-1' type='radio' />
             <label htmlFor='value-1'>Men</label>
-            <input onChange={formik.handleChange} name='category' value='men' id='value-2' type='radio' />
+            <input onChange={formik.handleChange} name='category' value='women' id='value-2' type='radio' />
             <label htmlFor='value-2'>Women</label>
             <input onChange={formik.handleChange} value='kids' name='category' id='value-3' type='radio' />
             <label htmlFor='value-3'>Kids </label>

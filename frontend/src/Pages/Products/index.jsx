@@ -2,14 +2,19 @@ import "./Products.css";
 import Tab from "./Tab";
 import ProductList from "./ProductList";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const index = () => {
-  const userData = useSelector((state) => state.userData);
+  const [prodCate, setProdCate] = useState("");
+
+  const getProdCate = (value) => {
+    return setProdCate(value);
+  };
 
   return (
     <div style={{ padding: "7rem" }}>
-      <Tab />
-      <ProductList />
+      <Tab getProdCate={getProdCate} />
+      <ProductList prodCate={prodCate} />
     </div>
   );
 };

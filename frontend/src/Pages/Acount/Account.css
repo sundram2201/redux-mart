@@ -15,12 +15,12 @@
 .form {
   display: flex;
   flex-direction: column;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7), -10px -10px 30px rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 4px 15px rgba(1, 0, 0, 0.7), -4px -4px 15px rgba(255, 255, 255, 0.05);
   padding-left: 2em;
   padding-right: 2em;
   padding-bottom: 0.4em;
   background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2));
-  border-radius: 25px;
+  border-radius: 20px;
 }
 
 #heading {
@@ -100,10 +100,11 @@
 
 .card {
   color: #fff;
+  border-radius: 20px;
   border-radius: 2em;
   padding: 10px;
   background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2));
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7), -10px -10px 60px rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 4px 15px rgba(1, 0, 0, 0.7), -4px -4px 15px rgba(255, 255, 255, 0.05);
 }
 
 .profileimage {

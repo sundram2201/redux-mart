@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userData: [
-    {
-      data: "",
-      token: "",
-    },
-  ],
+  userData: {
+    data: null,
+    // token: "",
+  },
 };
 
 export const userSlice = createSlice({
@@ -14,10 +12,10 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     getUser: (state, action) => {
-      state.userData[0].data = action.payload.data;
-      state.userData[0].token = action.payload.token;
+      state.userData.data = action.payload;
+      // state.userData.token = action.payload.token;
 
-      // push({ data: action.payload.data, token: action.payload.token });
+      // // push({ data: action.payload.data, token: action.payload.token });
     },
   },
 });
