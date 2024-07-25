@@ -11,10 +11,10 @@ const productSchema = mongoose.Schema({
   updatedAt: { type: Date, required: true },
 });
 
-const cartSchema = mongoose.Schema({
+const favSchema = mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   items: [productSchema],
   createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("carts", cartSchema);
+module.exports = mongoose.model("favourites", favSchema);
