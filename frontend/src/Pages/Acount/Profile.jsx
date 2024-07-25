@@ -6,7 +6,6 @@ const Profile = () => {
   const profile = useSelector((state) => state.userData.data);
 
   const userData = profile?.user;
-  console.log(profile, ">bb");
   return (
     <section className='vh-100'>
       <div className='container py-5 h-100'>

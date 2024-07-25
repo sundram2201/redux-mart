@@ -1,16 +1,11 @@
-import React from "react";
-import { AddToCartAPI } from "../APIs";
+import { AddToCartAPI, AddToFavAPI } from "../APIs";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 
-export const HandleAddCart = async (e, prodData, userId) => {
-  //   const userId = useSelector((state) => state.userData.data?.user?._id);
-
-  e.stopPropagation();
+export const HandleAddFav = async (prodData, userId) => {
   try {
     const data = { userId, prodData };
 
-    const res = await AddToCartAPI(data);
+    const res = await AddToFavAPI(data);
     if (res.status === 201) {
       toast.success(res.data.message);
     }
@@ -19,8 +14,7 @@ export const HandleAddCart = async (e, prodData, userId) => {
   }
 };
 
-export const HandleRemoveCart = async (e, prodData) => {
-  e.stopPropagation();
+export const HandleRemoveFav = async (prodData) => {
   try {
     const data = { userId, prodData };
 

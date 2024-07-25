@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { AddToCartAPI } from "../../Utils/APIs";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 import SellIcon from "@mui/icons-material/Sell";
 import { HandleAddCart } from "../../Utils/ProductEvents/HandleCart";
+import { HandleAddFav, HandleRemoveFav } from "../../Utils/ProductEvents/HandleFav";
 
 const ProductCard = ({ el, i }) => {
-  const [isAdded, setIsAdded] = useState(false);
+  const [isFav, setIsFav] = useState(false);
   const navigate = useNavigate();
   const userId = useSelector((state) => state.userData.data?.user?._id);
 
@@ -20,13 +19,24 @@ const ProductCard = ({ el, i }) => {
     }
   };
 
-  // cartInfo?.foreach((ele) => {
-  //   if (ele?._id === el?._id) {
-  //     setIsAdded(true);
-  //   } else {
-  //     setIsAdded(false);
-  //   }
-  // });
+  const toggleFav = (e) => {
+    e.stopPropagation();
+    setIsFav(!isFav);
+  };
+
+  const handleFav = (el, userId) => {
+    if (isFav) {
+      HandleAddFav(el, userId);
+    } else {
+      console.log(isFav, "isnotttttttfavvvvvv");
+
+      // HandleRemoveFav();
+    }
+  };
+
+  useEffect(() => {
+    handleFav();
+  }, [isFav]);
 
   return (
     <div key={i} style={{ cursor: "pointer" }} onClick={() => navigate(`/product/${el._id}`)} className='col-md-3 my-3'>
@@ -45,7 +55,7 @@ const ProductCard = ({ el, i }) => {
           <div className='card-price'>
             <span>$</span> {el.price}
           </div>
-          <div className='con-like' onClick={(e) => HandleAddFav(e, el)}>
+          <div className='con-like' onClick={(e) => toggleFav(e, el, userId)}>
             <input className='like' type='checkbox' title='like' />
             <div className='checkmark'>
               <svg xmlns='http://www.w3.org/2000/svg' className='outline' viewBox='0 0 24 24'>
