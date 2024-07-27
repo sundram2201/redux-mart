@@ -65,6 +65,7 @@ exports.getUser = async (req, res) => {
     // Fetch the cart based on userId
     const cart = await CartDB.findOne({ userId: userId }); // Use findOne instead of findById
     const items = cart ? cart.items : [];
+    console.log(cart, ">?items");
 
     // Return user data along with cart items
     return res.status(200).json({

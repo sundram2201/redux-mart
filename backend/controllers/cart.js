@@ -5,22 +5,21 @@ exports.AddToCart = async (req, res) => {
     const { userId, prodData } = req.body;
 
     let cart = await CartCollection.findOne({ userId });
-    const existingItem = cart?.items?.some((el, i) => el?._id?.toString() === prodData?._id?.toString());
     if (!cart) {
-      cart = new CartCollection({ userId, items: [] });
+      cart = await CartCollection.create({ userId, items: [] });
     }
 
+    const existingItem = cart?.items?.some((el, i) => el?._id?.toString() === prodData?._id?.toString());
     if (existingItem) {
       return res.status(400).json({ message: "Item already in the cart" });
-    } else {
-      cart.items.push(prodData);
     }
 
-    await cart.save();
-    return res.status(201).json({ message: "Added to cart", cart });
+    const result = await CartCollection.findByIdAndUpdate(cart._id, { $push: { items: prodData } }, { new: true });
+
+    res.status(201).json({ message: "Added to cart", cart: result });
   } catch (err) {
     console.error("Error adding to cart::", err);
-    return res.status(400).json({ message: "Error" });
+    res.status(400).json({ message: "Error" });
   }
 };
 
@@ -34,7 +33,25 @@ exports.CartList = async (req, res) => {
     }
 
     return res.status(200).json({ message: "Cart list", data: cartList });
-
-    return;
   } catch (err) {}
+};
+
+exports.DeleteFromCart = async (req, res) => {
+  try {
+    const { userId, prodData } = req.body;
+
+    const cart = await CartCollection.findOne({ userId: userId });
+
+    const itemIndex = cart.items.findIndex((item) => item._id.toString() === prodData?._id.toString());
+    if (itemIndex === -1) {
+      return res.status(404).json({ message: "Item not found in cart" });
+    }
+    cart.items.splice(itemIndex, 1);
+
+    await cart.save();
+
+    return res.status(200).json({ message: "Item removed form the cart", cart });
+  } catch (err) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 };
