@@ -2,20 +2,23 @@ import { GetAllProductAPI } from "../../Utils/APIs";
 import { useEffect, useState } from "react";
 import { ProductSkeleton } from "../../components/Loaders";
 import ProductCard from "./ProductCard";
+import { useSelector } from "react-redux";
 
+export const getAllProducts = async (setAllProducts) => {
+  try {
+    setAllProducts({ loading: true, data: [] });
+    const res = await GetAllProductAPI();
+    if (res.status === 200) {
+      setAllProducts({ loading: false, data: res.data.data });
+    }
+  } catch (err) {
+    setAllProducts({ loading: false, data: [] });
+  }
+};
 const ProductList = ({ prodCate }) => {
   const [allProducts, setAllProducts] = useState({ loading: true, data: [] });
-
-  const getAllProducts = async () => {
-    try {
-      const res = await GetAllProductAPI();
-      if (res.status === 200) {
-        setAllProducts({ loading: false, data: res.data.data });
-      }
-    } catch (err) {
-      setAllProducts({ loading: false });
-    }
-  };
+  const cartItems = useSelector((state) => state.userData?.data?.cartItems);
+  console.log(cartItems, ">?cartItems");
 
   const filteredProducts = allProducts?.data.filter((el) => {
     if (!prodCate) {
@@ -27,7 +30,9 @@ const ProductList = ({ prodCate }) => {
   const ProductListing = () => {
     return filteredProducts.length ? (
       filteredProducts.map((el, i) => {
-        return <ProductCard key={i} el={el} />;
+        const isInCart = cartItems?.some((cartItem) => cartItem?._id === el?._id);
+
+        return <ProductCard key={i} el={el} isInCart={isInCart} setAllProducts={setAllProducts} />;
       })
     ) : (
       <div className='text-center my-5 text-secondary fw-bold'>
@@ -37,7 +42,7 @@ const ProductList = ({ prodCate }) => {
   };
 
   useEffect(() => {
-    getAllProducts();
+    getAllProducts(setAllProducts);
   }, []);
 
   return (

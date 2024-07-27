@@ -147,6 +147,8 @@ const AddProduct = () => {
               autoComplete='off'
               placeholder='Product description'
               className='input-field'
+              rows='6'
+              cols='50'
               type='text'></textarea>
           </div>
 

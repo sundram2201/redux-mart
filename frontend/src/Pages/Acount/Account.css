@@ -77,6 +77,10 @@
   color: black;
 }
 
+.rmv-btn:hover {
+  color: white !important;
+}
+
 .login-btn:after {
   content: "";
   background: white;
@@ -88,6 +92,9 @@
   bottom: 0;
   transform: skewX(-45deg) scale(0, 1);
   transition: all 0.5s;
+}
+.rmv-btn:after {
+  background: red !important;
 }
 
 .login-btn:hover:after {
@@ -101,7 +108,7 @@
 .card {
   color: #fff;
   border-radius: 20px;
-  border-radius: 2em;
+  border-radius: 1em;
   padding: 10px;
   background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2));
   box-shadow: 4px 4px 15px rgba(1, 0, 0, 0.7), -4px -4px 15px rgba(255, 255, 255, 0.05);

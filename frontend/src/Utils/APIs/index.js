@@ -1,8 +1,9 @@
-import { FILEPOST, GET, GETBYTOKEN, POST } from "./Interface";
+import { FILEPOST, GET, GETBYTOKEN, POST, DELETE } from "./Interface";
 
 export const LoginAPI = (data) => POST("/api/v1/user/login-user", data);
 
 export const GetCartListAPI = () => GETBYTOKEN("/api/v1/cart/cart-list");
+export const DeleteItemFromCartAPI = (data) => POST("/api/v1/cart/delete", data);
 
 export const GetUserDataAPI = () => GETBYTOKEN("/api/v1/user/get-user");
 export const AddProductAPI = (data) => FILEPOST("/api/v1/product/add-product", data);

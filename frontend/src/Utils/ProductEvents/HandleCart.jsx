@@ -1,34 +1,41 @@
 import React from "react";
-import { AddToCartAPI } from "../APIs";
+import { AddToCartAPI, DeleteItemFromCartAPI } from "../APIs";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { fetchUserData } from "../../components/Layout";
 
-export const HandleAddCart = async (e, prodData, userId) => {
-  //   const userId = useSelector((state) => state.userData.data?.user?._id);
-
+export const HandleCartAction = async (e, actionType, prodData, userId, setData, page) => {
   e.stopPropagation();
   try {
     const data = { userId, prodData };
+    let res = null;
 
-    const res = await AddToCartAPI(data);
-    if (res.status === 201) {
+    if (actionType === "delete") {
+      res = await DeleteItemFromCartAPI(data);
+    } else if (actionType === "add") {
+      res = await AddToCartAPI(data);
+    }
+
+    if (res.status === 200) {
       toast.success(res.data.message);
     }
-  } catch (err) {
-    toast(err.response.data.message, { icon: "⚠️", id: "001" });
-  }
-};
+    const { dispatch, navigate } = setData;
 
-export const HandleRemoveCart = async (e, prodData) => {
-  e.stopPropagation();
-  try {
-    const data = { userId, prodData };
+    fetchUserData(dispatch, navigate);
 
-    const res = await AddToCartAPI(data);
-    if (res.status === 201) {
-      toast.success(res.data.message);
+    // if (page === "product") {
+    //   const { dispatch, navigate } = setData;
+    //   fetchUserData(dispatch, navigate);
+    // } else if (page === "cart") {
+    //   getCartList(setData);
+    // } else
+
+    if (page === "view") {
+      const { setProdData, productID } = setData;
+
+      // GetProdById(setProdData, productID);
+      // fetchUserData(dispatch, navigate);
     }
   } catch (err) {
-    toast(err.response.data.message, { icon: "⚠️", id: "001" });
+    console.error("Error:::", err);
   }
 };

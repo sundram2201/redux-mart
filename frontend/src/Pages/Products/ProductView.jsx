@@ -2,29 +2,64 @@ import { useEffect, useState } from "react";
 import { GetProdByIdAPI } from "../../Utils/APIs";
 import { TruckLoader } from "../../components/Loaders";
 import SellIcon from "@mui/icons-material/Sell";
-import { HandleAddCart } from "../../Utils/ProductEvents/HandleCart";
-import { useSelector } from "react-redux";
+// import { HandleAddCart } from "../../Utils/ProductEvents/HandleCart";
+import { useDispatch, useSelector } from "react-redux";
+import { HandleCartAction } from "../../Utils/ProductEvents/HandleCart";
+import { useNavigate } from "react-router-dom";
+
+export const GetProdById = async (setProdData, productID) => {
+  setProdData({ loading: true });
+
+  try {
+    const res = await GetProdByIdAPI(productID);
+    if (res.status == 200) {
+      setProdData({ data: res.data.data, loading: false });
+    }
+  } catch (err) {
+    setProdData({ loading: false });
+  }
+};
 
 const ProductView = () => {
   const [prodData, setProdData] = useState({ loading: false, data: null });
-  const userId = useSelector((state) => state.userData.data?.user?._id);
+  const userData = useSelector((state) => state.userData);
+  const userId = userData.data?.user?._id;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  console.log(userData, ">?userData");
 
   const productID = window.location.href.split("/").at(-1);
-  const GetProdById = async () => {
-    setProdData({ loading: true });
 
-    try {
-      const res = await GetProdByIdAPI(productID);
-      if (res.status == 200) {
-        setProdData({ data: res.data.data, loading: false });
-      }
-    } catch (err) {
-      setProdData({ loading: false });
-    }
+  const cartBtn = () => {
+    const isInCart = userData?.data?.cartItems.some((item) => {
+      return item?._id === productID;
+    });
+
+    return (
+      <button
+        type='submit'
+        style={{ width: "90%" }}
+        onClick={(e) =>
+          isInCart
+            ? HandleCartAction(
+                e,
+                "delete",
+                prodData?.data,
+                userId,
+                { setProdData, productID, dispatch, navigate },
+                "view"
+              )
+            : HandleCartAction(e, "add", prodData?.data, userId, { setProdData, productID, dispatch, navigate }, "view")
+        }
+        className={`login-btn ${isInCart && "rmv-btn"}`}>
+        {isInCart ? "Remove from" : " Add to"} cart
+      </button>
+    );
   };
 
   useEffect(() => {
-    GetProdById();
+    GetProdById(setProdData, productID);
   }, []);
 
   return !prodData?.data ? (
@@ -65,13 +100,7 @@ const ProductView = () => {
               <hr className='my-4' />
 
               <div className='btnn d-flex justify-content-center align-items-center'>
-                <button
-                  type='submit'
-                  style={{ width: "90%" }}
-                  onClick={(e) => HandleAddCart(e, prodData?.data, userId)}
-                  className='login-btn '>
-                  Add to cart
-                </button>
+                {cartBtn()}
                 <div className='con-like ms-4 ' onClick={(e) => HandleAddFav(e, el)}>
                   <input className='like' type='checkbox' title='like' />
                   <div className='checkmark'>

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import SellIcon from "@mui/icons-material/Sell";
-import { HandleAddCart } from "../../Utils/ProductEvents/HandleCart";
-import { HandleAddFav, HandleRemoveFav } from "../../Utils/ProductEvents/HandleFav";
+import { HandleCartAction } from "../../Utils/ProductEvents/HandleCart";
+import { HandleAddFav } from "../../Utils/ProductEvents/HandleFav";
 
-const ProductCard = ({ el, i }) => {
-  const [isFav, setIsFav] = useState(false);
+const ProductCard = ({ el, i, setAllProducts, isInCart }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userId = useSelector((state) => state.userData.data?.user?._id);
 
   const ShortDesc = (val) => {
@@ -21,25 +21,16 @@ const ProductCard = ({ el, i }) => {
 
   const toggleFav = (e) => {
     e.stopPropagation();
-    setIsFav(!isFav);
+    // setIsFav(!isFav);
+    HandleAddFav(el, userId);
   };
-
-  const handleFav = (el, userId) => {
-    if (isFav) {
-      HandleAddFav(el, userId);
-    } else {
-      console.log(isFav, "isnotttttttfavvvvvv");
-
-      // HandleRemoveFav();
-    }
-  };
-
-  useEffect(() => {
-    handleFav();
-  }, [isFav]);
 
   return (
-    <div key={i} style={{ cursor: "pointer" }} onClick={() => navigate(`/product/${el._id}`)} className='col-md-3 my-3'>
+    <div
+      key={i}
+      style={{ cursor: "pointer" }}
+      onClick={() => navigate(`/product/${el?._id}`)}
+      className='col-md-3 my-3'>
       <div className='prod-card'>
         <span className='text-secondary text-end' style={{ fontSize: "14px" }}>
           <SellIcon fontSize='1px' /> {el.category}
@@ -55,7 +46,7 @@ const ProductCard = ({ el, i }) => {
           <div className='card-price'>
             <span>$</span> {el.price}
           </div>
-          <div className='con-like' onClick={(e) => toggleFav(e, el, userId)}>
+          <div className='con-like' onClick={(e) => toggleFav(e)}>
             <input className='like' type='checkbox' title='like' />
             <div className='checkmark'>
               <svg xmlns='http://www.w3.org/2000/svg' className='outline' viewBox='0 0 24 24'>
@@ -74,14 +65,39 @@ const ProductCard = ({ el, i }) => {
               </svg>
             </div>
           </div>
-          <button className='card-btn' onClick={(e) => HandleAddCart(e, el, userId)}>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-              <path d='m397.78 316h-205.13a15 15 0 0 1 -14.65-11.67l-34.54-150.48a15 15 0 0 1 14.62-18.36h274.27a15 15 0 0 1 14.65 18.36l-34.6 150.48a15 15 0 0 1 -14.62 11.67zm-193.19-30h181.25l27.67-120.48h-236.6z'></path>
-              <path d='m222 450a57.48 57.48 0 1 1 57.48-57.48 57.54 57.54 0 0 1 -57.48 57.48zm0-84.95a27.48 27.48 0 1 0 27.48 27.47 27.5 27.5 0 0 0 -27.48-27.47z'></path>
-              <path d='m368.42 450a57.48 57.48 0 1 1 57.48-57.48 57.54 57.54 0 0 1 -57.48 57.48zm0-84.95a27.48 27.48 0 1 0 27.48 27.47 27.5 27.5 0 0 0 -27.48-27.47z'></path>
-              <path d='m158.08 165.49a15 15 0 0 1 -14.23-10.26l-25.71-77.23h-47.44a15 15 0 1 1 0-30h58.3a15 15 0 0 1 14.23 10.26l29.13 87.49a15 15 0 0 1 -14.23 19.74z'></path>
-            </svg>
-          </button>
+          {isInCart ? (
+            <button
+              className='card-btn sub-icon'
+              onClick={(e) =>
+                HandleCartAction(e, "delete", el, userId, { dispatch, navigate, setAllProducts }, "product")
+              }>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='16'
+                height='16'
+                fill='currentColor'
+                class='bi bi-cart-dash'
+                viewBox='0 0 16 16'>
+                <path d='M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z' />
+                <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0' />
+              </svg>
+            </button>
+          ) : (
+            <button
+              className='card-btn plus-icon'
+              onClick={(e) => HandleCartAction(e, "add", el, userId, { dispatch, navigate }, "product")}>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='16'
+                height='16'
+                fill='currentColor'
+                class='bi bi-cart-plus'
+                viewBox='0 0 16 16'>
+                <path d='M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z' />
+                <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0' />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
     </div>

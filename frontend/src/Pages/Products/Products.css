@@ -16,22 +16,21 @@
 .tab-container {
   position: relative;
   width: fit-content;
-  color: black;
+  color: white;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-
   padding: 2px;
-
-  background-color: #dadadb;
+  background-color: #01080e;
   border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .indicator {
   content: "";
   width: 130px;
   height: 28px;
-  background: #ffffff;
+  background: linear-gradient(45deg, #7b3df6, #b700ff);
   position: absolute;
   top: 2px;
   left: 2px;
@@ -240,6 +239,7 @@ then set the desired styles for .card-img. */
 
 .card-btn svg {
   width: 100%;
+  padding: 4px;
   height: 100%;
   fill: var(--bg-color);
   transition: all 0.3s;

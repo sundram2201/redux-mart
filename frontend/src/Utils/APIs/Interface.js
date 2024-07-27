@@ -26,3 +26,12 @@ export const GETBYTOKEN = (EndPoint) => {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 };
+
+export const DELETE = (EndPoint, data) => {
+  return axios.delete(BaseUrl + EndPoint, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    params: data,
+  });
+};

@@ -1,21 +1,31 @@
-import { Link } from "react-router-dom";
 import { GetCartListAPI } from "../../Utils/APIs";
 import { useEffect, useState } from "react";
+import { TruckLoader } from "../../components/Loaders";
+import { HandleCartAction } from "../../Utils/ProductEvents/HandleCart";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+// export const getCartList = async (setCartData) => {
+//   try {
+//     setCartData({ loading: true });
+
+//     const res = await GetCartListAPI();
+//     if (res.status === 200) {
+//       setCartData({ loading: false, data: res.data.data });
+//     } else {
+//       setCartData({ loading: false, data: [] });
+//     }
+//   } catch (err) {
+//     setCartData({ loading: false });
+//   }
+// };
 
 const index = () => {
   const [cartData, setCartData] = useState({ loading: false, data: null });
-  const getCartList = async () => {
-    try {
-      setCartData({ loading: true });
-
-      const res = await GetCartListAPI();
-      if (res.status) {
-        setCartData({ loading: false, data: res.data.data });
-      }
-    } catch (err) {
-      setCartData({ loading: true });
-    }
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userData = useSelector((state) => state.userData.data);
+  const userId = userData?.user?._id;
 
   function truncateText(text, maxLength = 60) {
     if (text.length <= maxLength) {
@@ -25,9 +35,9 @@ const index = () => {
     }
   }
 
-  useEffect(() => {
-    getCartList();
-  }, []);
+  // useEffect(() => {
+  //   getCartList(setCartData);
+  // }, []);
 
   return (
     <div>
@@ -35,66 +45,87 @@ const index = () => {
         <div className='container py-5 h-100'>
           <div className='row d-flex justify-content-center align-items-center h-100'>
             <div className='col'>
-              <div className='cart-card'>
+              <div className='card'>
                 <div className='card-body p-4'>
                   <div className='row'>
                     <div className='col-lg-7'>
                       <h5 className='mb-3 text-start'>
-                        <Link to='/' className=''>
-                          <i className='fas fa-long-arrow-alt-left me-2'></i>My Cart
-                        </Link>
+                        <i className='fas fa-long-arrow-alt-left me-2'></i>My Cart
                       </h5>
                       <hr />
-                      <div className='d-flex justify-content-between align-items-center mb-4'>
-                        <div>
-                          <p className='mb-0'>You have {cartData?.data?.items?.length} items in your cart</p>
-                        </div>
-                      </div>
-                      {cartData?.data
-                        ? cartData?.data?.items?.map((el, i) => {
-                            return (
-                              <div key={i} className='cart-card mb-3'>
-                                <div className='card-body'>
-                                  <div className='d-flex justify-content-between'>
-                                    <div className='d-flex flex-row align-items-center'>
-                                      <div>
-                                        <img
-                                          src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp'
-                                          className='img-fluid rounded-3'
-                                          alt='Shopping item'
-                                          style={{ width: "65px" }}
-                                        />
+                      {userData ? (
+                        <>
+                          <div className='d-flex justify-content-between align-items-center mb-4'>
+                            <div>
+                              <p className='mb-0'>You have {userData?.cartItems?.length || 0} items in your cart</p>
+                            </div>
+                          </div>
+                          {!userData?.cartItems ? (
+                            <div className='text-center my-5 text-secondary fw-bold'>
+                              <i>Nothing in your cart...</i>
+                            </div>
+                          ) : (
+                            userData?.cartItems?.map((el, i) => {
+                              return (
+                                <div key={i} className='card mb-3'>
+                                  <div className='card-body'>
+                                    <div className='d-flex justify-content-between'>
+                                      <div className='d-flex flex-row align-items-center'>
+                                        <div>
+                                          <img
+                                            src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp'
+                                            className='img-fluid rounded-3'
+                                            alt='Shopping item'
+                                            style={{ width: "65px" }}
+                                          />
+                                        </div>
+                                        <div className='ms-3 text-start'>
+                                          <h5>{el?.name}</h5>
+                                          <p className='small mb-0'>{truncateText(el?.desc)}</p>
+                                        </div>
                                       </div>
-                                      <div className='ms-3 text-start'>
-                                        <h5>{el?.name}</h5>
-                                        <p className='small mb-0'>{truncateText(el?.desc)}</p>
+                                      <div className='d-flex flex-row align-items-center'>
+                                        <div style={{ width: "80px" }}>
+                                          <h5 className='mb-0'>${el?.price}</h5>
+                                        </div>
+                                        <button
+                                          className='del-btn'
+                                          onClick={(e) =>
+                                            HandleCartAction(
+                                              e,
+                                              "delete",
+                                              el,
+                                              userId,
+                                              { dispatch, navigate, setCartData },
+                                              "cart"
+                                            )
+                                          }>
+                                          <svg
+                                            xmlns='http://www.w3.org/2000/svg'
+                                            width='16'
+                                            height='16'
+                                            fill='currentColor'
+                                            className='bi bi-trash-fill'
+                                            viewBox='0 0 16 16'>
+                                            <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0' />
+                                          </svg>
+                                        </button>
                                       </div>
-                                    </div>
-                                    <div className='d-flex flex-row align-items-center'>
-                                      <div style={{ width: "80px" }}>
-                                        <h5 className='mb-0'>${el?.price}</h5>
-                                      </div>
-                                      <button className='del-btn'>
-                                        <svg
-                                          xmlns='http://www.w3.org/2000/svg'
-                                          width='16'
-                                          height='16'
-                                          fill='currentColor'
-                                          className='bi bi-trash-fill'
-                                          viewBox='0 0 16 16'>
-                                          <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0' />
-                                        </svg>
-                                      </button>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            );
-                          })
-                        : ""}
+                              );
+                            })
+                          )}
+                        </>
+                      ) : (
+                        <div className='d-flex justify-content-center align-items-center h-100'>
+                          <TruckLoader />
+                        </div>
+                      )}
                     </div>
                     <div className='col-lg-5'>
-                      <div className='cart-card bg-primary text-white rounded-3 payment-card'>
+                      <div className='card bg-primary text-white rounded-3 payment-card'>
                         <div className='card-body'>
                           <div className='d-flex justify-content-between align-items-center mb-4'>
                             <h5 className='mb-0'>Card details</h5>

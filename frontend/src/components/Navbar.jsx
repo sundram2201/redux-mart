@@ -36,6 +36,11 @@ const Navbar = () => {
                 My Profile
               </Link>
             </li>
+            <li className='nav-item active'>
+              <Link to='/' className='nav-link menu__link'>
+                Cart
+              </Link>
+            </li>
             <li className='nav-item'>
               <Link to='/add-product' className='nav-link menu__link'>
                 Add Product

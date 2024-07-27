@@ -4,6 +4,7 @@ import Login from "../../Pages/Acount/Login.jsx";
 import NotFound from "../404.jsx";
 import Profile from "../../Pages/Acount/Profile.jsx";
 import Cart from "../../Pages/Cart";
+import Favourites from "../../Pages/Favourites";
 import AddProduct from "../../Pages/Products/AddProduct.jsx";
 import ProductView from "../../Pages/Products/ProductView.jsx";
 import { Toaster } from "react-hot-toast";
@@ -53,6 +54,14 @@ const index = () => {
             element={
               <Private>
                 <Cart />
+              </Private>
+            }
+          />
+          <Route
+            path='/favourites'
+            element={
+              <Private>
+                <Favourites />
               </Private>
             }
           />

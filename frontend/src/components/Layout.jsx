@@ -1,28 +1,32 @@
-import React, { useEffect } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
-
-import logo from "../../public/reduxMart-logo2.png";
+import React, { useEffect, useState } from "react";
+import {
+  AppBar,
+  Box,
+  CssBaseline,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import {
+  ShoppingCartOutlined as ShoppingCartOutlinedIcon,
+  AddOutlined as AddOutlinedIcon,
+  AccountCircleOutlined as AccountCircleOutlinedIcon,
+  HomeOutlined as HomeOutlinedIcon,
+  ArrowBackIosNewOutlined as ArrowBackIosNewOutlinedIcon,
+  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+} from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { GetUserDataAPI } from "../Utils/APIs";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./Slices/UserSlice";
+import logo from "../../public/reduxMart-logo2.png";
 
 const drawerWidth = 320;
 
@@ -35,6 +39,7 @@ export const fetchUserData = async (dispatch, navigate) => {
   } catch (err) {
     if (err.response.status === 401) {
       navigate("/login");
+      localStorage.removeItem("token");
     }
   }
 };
@@ -45,8 +50,8 @@ const Layout = (props) => {
 
   const navigate = useNavigate();
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     fetchUserData(dispatch, navigate);
@@ -70,6 +75,8 @@ const Layout = (props) => {
     name === "Home" && navigate("/");
     name === "Profile" && navigate("/profile");
     name === "Add Product" && navigate("/add-product");
+    name === "Cart" && navigate("/cart");
+    name === "Favourites" && navigate("/favourites");
   };
 
   const displayIcon = (index) => {
@@ -77,10 +84,16 @@ const Layout = (props) => {
       return <HomeOutlinedIcon />;
     }
     if (index === 1) {
-      return <AccountCircleIcon />;
+      return <AccountCircleOutlinedIcon />;
     }
     if (index === 2) {
       return <AddOutlinedIcon />;
+    }
+    if (index === 3) {
+      return <ShoppingCartOutlinedIcon />;
+    }
+    if (index === 4) {
+      return <FavoriteBorderOutlinedIcon />;
     }
   };
 
@@ -92,12 +105,12 @@ const Layout = (props) => {
       </Link>
       <Divider />
       <List>
-        {["Home", "Profile", "Add Product"].map((text, index) => {
+        {["Home", "Profile", "Add Product", "Cart", "Favourites"].map((text, index) => {
           return (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={(e) => handleNavigate(e.target.textContent)}>
+            <ListItem onClick={(e) => handleNavigate(e.target.textContent)} key={text} disablePadding>
+              <ListItemButton>
                 <ListItemIcon>{displayIcon(index)}</ListItemIcon>
-                <ListItemText style={{ color: "black" }} primary={text} />
+                <ListItemText primary={<Typography style={{ fontWeight: "bold" }}>{text}</Typography>} />
               </ListItemButton>
             </ListItem>
           );
@@ -123,16 +136,10 @@ const Layout = (props) => {
           </button>
           <Typography noWrap component='div'>
             <div className='d-flex justify-content-center align-items-center'>
-              <div className=''>
+              <div className='me-4'>
                 Welcome, <b> {userData?.user?.fullname}</b>
               </div>
-              <div className=''>
-                <button data-quantity={userData?.itemCount} className='btn-cart' onClick={() => navigate("/cart")}>
-                  <ShoppingCartOutlinedIcon className='icon-cart' />
 
-                  <span className='quantity'></span>
-                </button>
-              </div>
               <div className=''>
                 <button onClick={() => handleLogout()}>Logout</button>
               </div>
