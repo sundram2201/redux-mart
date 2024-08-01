@@ -10,8 +10,8 @@ app.use(cors());
 
 app.use(
   cors({
-    // origin: "https://redux-mart.onrender.com" || "http://localhost:5173",
-    origin: "http://localhost:5173" || "https://redux-mart.onrender.com",
+    origin: "https://redux-mart.onrender.com" || "http://localhost:5173",
+    // origin: "http://localhost:5173" || "https://redux-mart.onrender.com",
     credentials: true, // Allow cookies (if applicable)
   })
 );
