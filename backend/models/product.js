@@ -9,14 +9,17 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
       default: "",
+      required: true,
     },
     desc: {
       type: String,
       default: "",
+      required: true,
     },
     category: {
       type: String,
       default: "",
+      required: true,
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -25,6 +28,7 @@ const productSchema = new mongoose.Schema(
     image: [
       {
         type: String,
+        required: true,
       },
     ],
   },

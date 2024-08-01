@@ -3,10 +3,12 @@
   /* width: 240px; */
   /* height: 130px; */
   margin-bottom: 10px;
-  border: 1px solid #d3d3d3;
+  border: 1px solid #343232;
   padding: 25px;
-  background-color: #000;
+  background-color: #111111;
   overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7), -4px -4px 15px rgba(255, 255, 255, 0.05) !important;
 }
 
 .loader:after {
@@ -184,3 +186,19 @@
 /* truck suspension animation*/
 
 /* truck's tires */
+
+.invert-loader {
+  color: #000;
+}
+
+.card-btn:hover .invert-loader {
+  color: #fff;
+}
+
+.login-loader {
+  color: #fff;
+}
+
+.login-btn:hover .invert-loader {
+  color: #000;
+}

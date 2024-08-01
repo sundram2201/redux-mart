@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -24,20 +24,29 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { GetUserDataAPI } from "../Utils/APIs";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUser } from "./Slices/UserSlice";
 import logo from "../../public/reduxMart-logo2.png";
+import aside from "../../public/aside.png";
+import useUserData from "../Hooks/User";
 
 const drawerWidth = 320;
 
+const LayoutContext = createContext();
+
+export const useLayoutContext = () => useContext(LayoutContext);
+
 export const fetchUserData = async (dispatch, navigate) => {
   try {
+    // setIsFetchingUser(true);
     const res = await GetUserDataAPI();
     if (res.status === 200) {
       dispatch(getUser(res.data.data));
+      // setIsFetchingUser(false);
     }
   } catch (err) {
     if (err.response.status === 401) {
+      // setIsFetchingUser(false);
       navigate("/login");
       localStorage.removeItem("token");
     }
@@ -45,13 +54,13 @@ export const fetchUserData = async (dispatch, navigate) => {
 };
 
 const Layout = (props) => {
+  const [isFetchingUser, setIsFetchingUser] = useState(true);
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userData.data);
+  const userData = useUserData();
 
   const navigate = useNavigate();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     fetchUserData(dispatch, navigate);
@@ -62,14 +71,14 @@ const Layout = (props) => {
     navigate("/login");
     localStorage.removeItem("token");
   };
-  const handleDrawerClose = () => {
-    setIsClosing(true);
-    setMobileOpen(false);
-  };
+  // const handleDrawerClose = () => {
+  //   setIsClosing(true);
+  //   setMobileOpen(false);
+  // };
 
-  const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
-  };
+  // const handleDrawerTransitionEnd = () => {
+  //   setIsClosing(false);
+  // };
 
   const handleNavigate = (name) => {
     name === "Home" && navigate("/");
@@ -98,7 +107,7 @@ const Layout = (props) => {
   };
 
   const drawer = (
-    <div>
+    <div className='drawer' style={{ background: ` url(${aside}) no-repeat right top #000`, height: "100vh" }}>
       <Toolbar />
       <Link to='/' className='navbar-brand wlcm-head'>
         <img src={logo} alt='reduxMart logo' />
@@ -122,7 +131,7 @@ const Layout = (props) => {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} className='comp-box'>
       <CssBaseline />
       <AppBar
         position='fixed'
@@ -131,29 +140,37 @@ const Layout = (props) => {
           ml: { sm: `${drawerWidth}px` },
         }}>
         <Toolbar className='justify-content-between'>
-          <button onClick={() => navigate(-1)}>
+          <button className='grd-btn' onClick={() => navigate(-1)}>
             <ArrowBackIosNewOutlinedIcon />
           </button>
           <Typography noWrap component='div'>
-            <div className='d-flex justify-content-center align-items-center'>
+            <div className='d-flex justify-content-center align-items-center '>
               <div className='me-4'>
                 Welcome, <b> {userData?.user?.fullname}</b>
               </div>
 
               <div className=''>
-                <button onClick={() => handleLogout()}>Logout</button>
+                <button className='grd-btn' onClick={() => handleLogout()}>
+                  Logout
+                </button>
               </div>
             </div>
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box component='nav' sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label='mailbox folders'>
+
+      <Box
+        style={{ background: ` url(${aside}) no-repeat right top #000` }}
+        component='nav'
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label='mailbox folders'>
         <Drawer
+          style={{ background: ` url(${aside}) no-repeat right top #000` }}
           container={container}
           variant='temporary'
           open={mobileOpen}
-          onTransitionEnd={handleDrawerTransitionEnd}
-          onClose={handleDrawerClose}
+          // onTransitionEnd={handleDrawerTransitionEnd}
+          // onClose={handleDrawerClose}
           ModalProps={{
             keepMounted: true,
           }}
@@ -172,7 +189,9 @@ const Layout = (props) => {
         </Drawer>
       </Box>
       <Box component='main' sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
-        {props.children}
+        <LayoutContext.Provider value={{ userData, isFetchingUser, setIsFetchingUser }}>
+          {props.children}
+        </LayoutContext.Provider>
       </Box>
     </Box>
   );

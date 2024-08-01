@@ -87,3 +87,14 @@ h78.747C231.693,100.736,232.77,106.162,232.77,111.694z'></path>
     </div>
   );
 };
+
+export const SmCartLoader = ({ page }) => {
+  // console.log(page, ">?aaaa");
+  return (
+    <div
+      className={`spinner-border invert-loader ${page === "login" && "login-loader"} spinner-border-sm`}
+      role='status'>
+      {/* <span class='sr-only'>Loading...</span> */}
+    </div>
+  );
+};

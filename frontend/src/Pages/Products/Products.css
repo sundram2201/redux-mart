@@ -21,7 +21,7 @@
   flex-direction: row;
   align-items: flex-start;
   padding: 2px;
-  background-color: #01080e;
+  background-color: #000;
   border-radius: 9px;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -87,7 +87,10 @@
 .card-img .img::before and .card-img .img::after,
 then set the desired styles for .card-img. */
 .prod-card {
-  background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2)) !important;
+  padding: 2em;
+  /* background: linear-gradient(-45deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)) !important; */
+
+  background: #111 !important;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7), -4px -4px 15px rgba(255, 255, 255, 0.05) !important;
   border: 0px solid !important;
   --font-color: #fefefe;
@@ -487,7 +490,11 @@ then set the desired styles for .card-img. */
   flex: 1 1 0%;
 }
 .thumbnailImage {
-  display: inline-block;
+  display: flex;
+  color: #dfc3eb;
+  margin: 0 2rem;
+  text-align: start;
+  font-size: 13px;
 }
 .thumbnailImage img {
   display: inline-block;

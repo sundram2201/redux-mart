@@ -52,6 +52,7 @@ exports.DeleteFromCart = async (req, res) => {
 
     return res.status(200).json({ message: "Item removed form the cart", cart });
   } catch (err) {
+    console.log({ err });
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };

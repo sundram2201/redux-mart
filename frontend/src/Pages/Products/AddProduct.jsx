@@ -14,15 +14,12 @@ const AddProduct = () => {
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
-
         formData.append("name", values.name);
         formData.append("desc", values.desc);
         formData.append("price", values.price);
         formData.append("category", values.category);
 
-        selectedFiles.forEach((file) => {
-          formData.append("image", file);
-        });
+        selectedFiles.forEach((file) => formData.append("image", file));
         const res = await AddProductAPI(formData);
         if (res.status === 201) {
           toast.success(res?.data?.message);
@@ -39,71 +36,20 @@ const AddProduct = () => {
     setSelectedFiles(files);
   };
 
-  const renderImagePreviews = () => {
-    return selectedFiles.map((file) => (
-      <div className='thumbnailImage' key={file.name}>
-        <img src={URL.createObjectURL(file)} alt={file.name} />
-      </div>
-    ));
+  const RenderImagePreviews = () => {
+    return selectedFiles?.map((file) => {
+      return (
+        // <div className='thumbnailImage' style={{ margin: "0 2rem" }} key={file.name}>
+        //   {/* <img src={URL.createObjectURL(file)} alt={file.name} /> */}
+        //   {file.name}
+        // </div>
+
+        <li>{file.name}</li>
+      );
+    });
   };
 
-  // const handleFilechange = async (e) => {
-  //   const files = Array.from(e.target.files); // Convert FileList to an array
-  //   formik.setFieldValue(
-  //     "image",
-  //     files.map((file) => file)
-  //   );
-  //   // setSelectedFiles(Array.from(e.target.files));
-
-  //   // formdata.append("name", file);
-  //   // formdata.append("image", file);
-  //   // formdata.append("image", file);
-  //   // let file = e.target.files[0];
-  //   // const type = file.type.split("/")[1];
-  //   // const imageType = ["jpeg", "jpg", "png"];
-  //   // const validImageType = imageType.includes(type);
-  //   // if (!validImageType) {
-  //   //   formik.setFieldError("profilePic", "Please upload a valid image : jpeg, png, jpg");
-  //   //   toast.dismiss(loadingToast);
-  //   // } else {
-  //   //   if (file.size > 5000001) {
-  //   //     formik.setFieldError("profilePic", "image size is more than 5 MB");
-  //   //     toast.dismiss(loadingToast);
-  //   //     setProfile("");
-  //   //   } else {
-  //   //     let fr = new FileReader();
-  //   //     fr.readAsDataURL(file);
-  //   //     fr.onload = function () {
-  //   //       setImage(fr.result);
-  //   //     };
-  //   //   }
-  //   // }
-  //   // const formdata = new FormData();
-  //   // formdata.append("file", file);
-  //   // try {
-  //   //   const response = await uploadProductImageAPI(formdata);
-  //   //   if (response?.status === 200) {
-  //   //     toast.success(response.data.message, { id: "001" });
-  //   //     toast.dismiss(loadingToast);
-  //   //   }
-  //   //   setImage(response.data.filePath);
-  //   //   formik.setFieldValue("image", response.data.filePath);
-  //   // } catch (err) {
-  //   //   toast.success(err?.response?.message, { id: "001" });
-  //   //   toast.dismiss(loadingToast);
-  //   // }
-  // };
-
-  // useEffect(() => {
-  //   if (loggedInUser?.data[0]?._id) {
-  //     formik.setValues({
-  //       name: loggedInUser?.data[0]?.firstName + loggedInUser?.data[0]?.lastName,
-  //       email: loggedInUser?.data[0]?.email,
-  //       image: loggedInUser?.data[0]?.filePath,
-  //     });
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [loggedInUser]);
+  const { handleChange, handleSubmit, values, errors } = formik;
 
   return (
     <>
@@ -111,14 +57,14 @@ const AddProduct = () => {
         Want to add your own <span>Product?</span>
       </p>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <form className='form' onSubmit={formik.handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
           <p id='heading'>Add here!</p>
           <div className='d-flex'>
             <div className='field'>
               <input
                 name='name'
-                value={formik.values.name}
-                onChange={formik.handleChange}
+                value={values.name}
+                onChange={handleChange}
                 autoComplete='off'
                 placeholder='Product name'
                 className='input-field'
@@ -129,8 +75,8 @@ const AddProduct = () => {
             <div className='field'>
               <input
                 name='price'
-                value={formik.values.price}
-                onChange={formik.handleChange}
+                value={values.price}
+                onChange={handleChange}
                 autoComplete='off'
                 placeholder='Product price'
                 className='input-field'
@@ -142,8 +88,8 @@ const AddProduct = () => {
           <div className='field'>
             <textarea
               name='desc'
-              value={formik.values.desc}
-              onChange={formik.handleChange}
+              value={values.desc}
+              onChange={handleChange}
               autoComplete='off'
               placeholder='Product description'
               className='input-field'
@@ -156,11 +102,11 @@ const AddProduct = () => {
             Choose category :
           </label>
           <div className='radio-input' style={{ margin: "0.5rem 2rem" }}>
-            <input onChange={formik.handleChange} name='category' value='men' id='value-1' type='radio' />
+            <input onChange={handleChange} name='category' value='men' id='value-1' type='radio' />
             <label htmlFor='value-1'>Men</label>
-            <input onChange={formik.handleChange} name='category' value='women' id='value-2' type='radio' />
+            <input onChange={handleChange} name='category' value='women' id='value-2' type='radio' />
             <label htmlFor='value-2'>Women</label>
-            <input onChange={formik.handleChange} value='kids' name='category' id='value-3' type='radio' />
+            <input onChange={handleChange} value='kids' name='category' id='value-3' type='radio' />
             <label htmlFor='value-3'>Kids </label>
           </div>
 
@@ -175,7 +121,7 @@ const AddProduct = () => {
               hidden={true}
               multiple
             />
-            <div className='text-danger'>{formik.errors.image}</div>
+            <div className='text-danger'>{errors.image}</div>
           </div>
           <div className='field'>
             <label
@@ -203,6 +149,11 @@ const AddProduct = () => {
               </svg>
               Add product Image
             </label>
+          </div>
+          <div className='thumbnailImage'>
+            <ol>
+              <RenderImagePreviews />
+            </ol>
           </div>
 
           <div className='btnn'>

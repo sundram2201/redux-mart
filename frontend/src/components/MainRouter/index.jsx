@@ -9,6 +9,7 @@ import AddProduct from "../../Pages/Products/AddProduct.jsx";
 import ProductView from "../../Pages/Products/ProductView.jsx";
 import { Toaster } from "react-hot-toast";
 import Private from "./PrivateRouting.jsx";
+import SignUp from "../../Pages/Acount/SignUp.jsx";
 
 const index = () => {
   return (
@@ -66,6 +67,7 @@ const index = () => {
             }
           />
           <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
           <Route path='/*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

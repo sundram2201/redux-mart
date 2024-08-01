@@ -1,5 +1,6 @@
 const UserDB = require("../models/user");
 const CartDB = require("../models/cart");
+const FavDB = require("../models/favourites");
 const jwt = require("jsonwebtoken"); // Import the library
 require("dotenv").config();
 
@@ -64,16 +65,20 @@ exports.getUser = async (req, res) => {
 
     // Fetch the cart based on userId
     const cart = await CartDB.findOne({ userId: userId }); // Use findOne instead of findById
-    const items = cart ? cart.items : [];
-    console.log(cart, ">?items");
+    const cartItems = cart ? cart.items : [];
+
+    const favourites = await FavDB.findOne({ userId: userId }); // Use findOne instead of findById
+    const favItems = favourites ? favourites.items : [];
 
     // Return user data along with cart items
     return res.status(200).json({
       message: "User fetched",
       data: {
         user: user,
-        cartItems: items,
-        itemCount: items.length,
+        cartItems,
+        itemCount: cartItems.length,
+        favItems,
+        favItemsCount: favItems.length,
       },
     });
   } catch (err) {

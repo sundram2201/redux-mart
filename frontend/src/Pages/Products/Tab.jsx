@@ -1,54 +1,38 @@
+import React from "react";
+
+// TabItem component for rendering individual tab
+const TabItem = ({ id, value, label, onClick }) => (
+  <>
+    <input
+      type='radio'
+      name='tab'
+      id={id}
+      className={`tab tab--${id}`}
+      value={value}
+      onChange={() => onClick(value)}
+      aria-checked={false}
+    />
+    <label className='tab_label' htmlFor={id}>
+      {label}
+    </label>
+  </>
+);
+
 const Tab = ({ getProdCate }) => {
+  // Define tabs data
+  const tabs = [
+    { id: "1", value: "", label: "All" },
+    { id: "2", value: "men", label: "Men" },
+    { id: "3", value: "women", label: "Women" },
+    { id: "4", value: "kids", label: "Kids" },
+  ];
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div className='tab-container'>
-        <input
-          type='radio'
-          name='tab'
-          id='tab1'
-          className='tab tab--1'
-          value=''
-          onClick={(e) => getProdCate(e.target.value)}
-        />
-        <label className='tab_label' htmlFor='tab1'>
-          All
-        </label>
-        <input
-          type='radio'
-          name='tab'
-          id='tab2'
-          className='tab tab--2'
-          value='men'
-          onClick={(e) => getProdCate(e.target.value)}
-        />
-        <label className='tab_label' htmlFor='tab2'>
-          Men
-        </label>
-
-        <input
-          type='radio'
-          name='tab'
-          id='tab3'
-          className='tab tab--3'
-          value='women'
-          onClick={(e) => getProdCate(e.target.value)}
-        />
-        <label className='tab_label' htmlFor='tab3'>
-          Women
-        </label>
-
-        <input
-          type='radio'
-          name='tab'
-          id='tab4'
-          className='tab tab--4'
-          value='kids'
-          onClick={(e) => getProdCate(e.target.value)}
-        />
-        <label className='tab_label' htmlFor='tab4'>
-          Kids
-        </label>
-
+        {tabs.map(({ id, value, label }) => (
+          <TabItem key={id} id={`${id}`} value={value} label={label} onClick={getProdCate} />
+        ))}
         <div className='indicator'></div>
       </div>
     </div>

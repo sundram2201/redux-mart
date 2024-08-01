@@ -19,7 +19,8 @@
   padding-left: 2em;
   padding-right: 2em;
   padding-bottom: 0.4em;
-  background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2));
+  /* background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2)); */
+  background: #111;
   border-radius: 20px;
 }
 
@@ -110,7 +111,8 @@
   border-radius: 20px;
   border-radius: 1em;
   padding: 10px;
-  background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2));
+  /* background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2)); */
+  background: #111;
   box-shadow: 4px 4px 15px rgba(1, 0, 0, 0.7), -4px -4px 15px rgba(255, 255, 255, 0.05);
 }
 
@@ -165,4 +167,17 @@
 
 #twitter:hover {
   color: #00acee;
+}
+.crt-acnt-box {
+  font-size: 14px;
+  padding: 15px 0;
+}
+
+.crt-acnt-link {
+  color: rgb(122, 62, 246) !important;
+  font-weight: bolder;
+  text-decoration: underline;
+}
+.crt-acnt-link:hover {
+  color: rgb(185, 0, 255) !important;
 }

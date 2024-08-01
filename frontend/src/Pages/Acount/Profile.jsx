@@ -1,16 +1,16 @@
-import { useSelector } from "react-redux";
 import "./Account.css";
 import { TruckLoader } from "../../components/Loaders";
+import { useLayoutContext } from "../../components/Layout";
 
 const Profile = () => {
-  const profile = useSelector((state) => state.userData.data);
+  const { userData } = useLayoutContext();
 
-  const userData = profile?.user;
+  const user = userData?.user;
   return (
     <section className='vh-100'>
       <div className='container py-5 h-100'>
         <div className='row d-flex justify-content-center align-items-center h-100'>
-          {!userData ? (
+          {!user ? (
             <TruckLoader />
           ) : (
             <div className='col-md-12 col-xl-4'>
@@ -23,37 +23,37 @@ const Profile = () => {
                       style={{ width: " 100px" }}
                     />
                   </div>
-                  <h4 className='mb-2'>{userData.fullname}</h4>
+                  <h4 className='mb-2'>{user.fullname}</h4>
                   <div className='row my-3  '>
                     <div className='col-md-6'>
                       <p className=' text-start fw-bold'>Full name </p>
-                      <p className=' text-start'>{userData.fullname}</p>
+                      <p className=' text-start'>{user.fullname}</p>
                     </div>
                     <div className='col-md-6'>
                       <p className=' text-start fw-bold'>User name </p>
-                      <p className=' text-start'>{userData.username}</p>
+                      <p className=' text-start'>{user.username}</p>
                     </div>
                   </div>
                   <div className='row my-3  '>
                     <div className='col-md-12'>
                       <p className=' text-start fw-bold'>Email </p>
-                      <p className=' text-start'>{userData.email}</p>
+                      <p className=' text-start'>{user.email}</p>
                     </div>
                   </div>
                   <div className='row my-3  '>
                     <div className='col-md-12'>
                       <p className=' text-start fw-bold'>Contact no. </p>
-                      <p className=' text-start'>{userData.contact}</p>
+                      <p className=' text-start'>{user.contact}</p>
                     </div>
                   </div>
 
                   <div className='d-flex justify-content-between text-center mt-5 mb-2'>
                     <div>
-                      <p className='mb-2 h5'>24</p>
+                      <p className='mb-2 h5'>{userData.favItemsCount}</p>
                       <p className=' mb-0'>Favourite Items</p>
                     </div>
                     <div className='px-3'>
-                      <p className='mb-2 h5'>{profile.itemCount}</p>
+                      <p className='mb-2 h5'>{userData.itemCount}</p>
                       <p className=' mb-0'>Cart Items</p>
                     </div>
                     {/* <div>

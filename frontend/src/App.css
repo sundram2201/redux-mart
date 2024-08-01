@@ -3,9 +3,10 @@ body {
   /* background-color: #0b1215 !important; */
   /* background-color: #080e0e !important; */
   /* background-color: #101720 !important; */
-  background-color: #171717 !important;
+  /* background-color: #161616 !important; */
   /* background-color: #011222 !important; */
   /* background-color: #020d19 !important; */
+  background-color: #111 !important;
 
   color: #fff;
 }
@@ -42,7 +43,8 @@ p {
   width: 10%;
 }
 .wlcm-head img {
-  width: 80%;
+  width: 75%;
+  margin-bottom: 1rem;
 }
 
 @keyframes logo-spin {
@@ -58,12 +60,6 @@ p {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.prod-card {
-  background-color: #01080e;
-
-  padding: 2em;
 }
 
 .read-the-docs {
@@ -189,7 +185,7 @@ p {
 
 .MuiDrawer-paper,
 .css-hyum1k-MuiToolbar-root {
-  background: #2c2c2c !important;
+  background: #000 !important;
 }
 
 .css-cveggr-MuiListItemIcon-root,
@@ -202,5 +198,13 @@ p {
   border-radius: 10px !important;
 }
 .css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root:hover {
+  background: linear-gradient(45deg, #7b3df6, #b700ff);
+}
+
+.MuiBox-root .css-jd7w1v {
+  background: url("../public/aside.png") no-repeat right top #000;
+}
+
+.grd-btn:hover {
   background: linear-gradient(45deg, #7b3df6, #b700ff);
 }
