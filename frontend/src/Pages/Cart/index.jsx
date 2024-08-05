@@ -19,6 +19,12 @@ const index = () => {
     }
   }
 
+  const subTotal = () => {
+    return userData?.cartItems.reduce((acc, val) => {
+      return acc + val.price;
+    }, 0);
+  };
+
   const CartList = () => {
     return userData ? (
       <>
@@ -56,7 +62,7 @@ const index = () => {
                         <h5 className='mb-0'>${el?.price}</h5>
                       </div>
                       {isLoading ? (
-                        <SmCartLoader />
+                        <SmCartLoader page='cart' />
                       ) : (
                         <button
                           className='del-btn'
@@ -171,7 +177,7 @@ const index = () => {
 
         <div className='d-flex justify-content-between'>
           <p className='mb-2'>Subtotal</p>
-          <p className='mb-2'>$4798.00</p>
+          <p className='mb-2'>${subTotal()}</p>
         </div>
 
         <div className='d-flex justify-content-between'>
@@ -181,7 +187,7 @@ const index = () => {
 
         <div className='d-flex justify-content-between mb-4'>
           <p className='mb-2'>Total (Incl. taxes)</p>
-          <p className='mb-2'>$4818.00</p>
+          <p className='mb-2'>${subTotal() + 20}</p>
         </div>
 
         <hr className='my-4' />

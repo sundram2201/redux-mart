@@ -89,11 +89,16 @@ h78.747C231.693,100.736,232.77,106.162,232.77,111.694z'></path>
 };
 
 export const SmCartLoader = ({ page }) => {
-  // console.log(page, ">?aaaa");
+  let addedCls = "";
+  if (page === "login") {
+    addedCls = "login-loader";
+  } else if (page === "cart") {
+    addedCls = "text-white";
+  } else {
+    addedCls = "";
+  }
   return (
-    <div
-      className={`spinner-border invert-loader ${page === "login" && "login-loader"} spinner-border-sm`}
-      role='status'>
+    <div className={`spinner-border invert-loader ${addedCls}   spinner-border-sm`} role='status'>
       {/* <span class='sr-only'>Loading...</span> */}
     </div>
   );

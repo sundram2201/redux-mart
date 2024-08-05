@@ -12,7 +12,6 @@ export const HandleCartAction = async (e, actionType, prodData, userId, setData,
     let res = null;
 
     if (actionType === "delete") {
-      console.log(data, "data in cart");
       res = await DeleteItemFromCartAPI(data);
     } else if (actionType === "add") {
       res = await AddToCartAPI(data);
