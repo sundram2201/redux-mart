@@ -3,6 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { AddProductAPI } from "../../Utils/APIs";
 import { useNavigate } from "react-router-dom";
+import SubmitButton from "../../components/SubmitButton";
 
 const AddProduct = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -38,14 +39,7 @@ const AddProduct = () => {
 
   const RenderImagePreviews = () => {
     return selectedFiles?.map((file) => {
-      return (
-        // <div className='thumbnailImage' style={{ margin: "0 2rem" }} key={file.name}>
-        //   {/* <img src={URL.createObjectURL(file)} alt={file.name} /> */}
-        //   {file.name}
-        // </div>
-
-        <li>{file.name}</li>
-      );
+      return <li>{file.name}</li>;
     });
   };
 
@@ -102,12 +96,14 @@ const AddProduct = () => {
             Choose category :
           </label>
           <div className='radio-input' style={{ margin: "0.5rem 2rem" }}>
-            <input onChange={handleChange} name='category' value='men' id='value-1' type='radio' />
-            <label htmlFor='value-1'>Men</label>
-            <input onChange={handleChange} name='category' value='women' id='value-2' type='radio' />
-            <label htmlFor='value-2'>Women</label>
-            <input onChange={handleChange} value='kids' name='category' id='value-3' type='radio' />
-            <label htmlFor='value-3'>Kids </label>
+            {["men", "women", "kids"].map((el, i) => {
+              return (
+                <>
+                  <input onChange={handleChange} name='category' value={el} id={`value-${i + 1}`} type='radio' />
+                  <label htmlFor={`value-${i + 1}`}>{el}</label>
+                </>
+              );
+            })}
           </div>
 
           <div className=''>
@@ -156,11 +152,7 @@ const AddProduct = () => {
             </ol>
           </div>
 
-          <div className='btnn'>
-            <button type='submit' className='login-btn'>
-              Submit
-            </button>
-          </div>
+          <SubmitButton />
         </form>
       </div>
     </>

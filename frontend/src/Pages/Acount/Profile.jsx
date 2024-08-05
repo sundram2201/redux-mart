@@ -24,26 +24,26 @@ const Profile = () => {
                     />
                   </div>
                   <h4 className='mb-2'>{user.fullname}</h4>
-                  <div className='row my-3  '>
+                  <div className='row my-3'>
                     <div className='col-md-6'>
-                      <p className=' text-start fw-bold'>Full name </p>
-                      <p className=' text-start'>{user.fullname}</p>
+                      <p className='text-start fw-bold'>Full name </p>
+                      <p className='text-start'>{user.fullname}</p>
                     </div>
                     <div className='col-md-6'>
-                      <p className=' text-start fw-bold'>User name </p>
-                      <p className=' text-start'>{user.username}</p>
+                      <p className='text-start fw-bold'>User name </p>
+                      <p className='text-start'>{user.username}</p>
                     </div>
                   </div>
-                  <div className='row my-3  '>
+                  <div className='row my-3'>
                     <div className='col-md-12'>
-                      <p className=' text-start fw-bold'>Email </p>
-                      <p className=' text-start'>{user.email}</p>
+                      <p className='text-start fw-bold'>Email </p>
+                      <p className='text-start'>{user.email}</p>
                     </div>
                   </div>
-                  <div className='row my-3  '>
+                  <div className='row my-3'>
                     <div className='col-md-12'>
-                      <p className=' text-start fw-bold'>Contact no. </p>
-                      <p className=' text-start'>{user.contact}</p>
+                      <p className='text-start fw-bold'>Contact no. </p>
+                      <p className='text-start'>{user.contact}</p>
                     </div>
                   </div>
 
@@ -56,10 +56,6 @@ const Profile = () => {
                       <p className='mb-2 h5'>{userData.itemCount}</p>
                       <p className=' mb-0'>Cart Items</p>
                     </div>
-                    {/* <div>
-                      <p className='mb-2 h5'>16</p>
-                      <p className=' mb-0'>Proucts added</p>
-                    </div> */}
                   </div>
                 </div>
               </div>

@@ -4,7 +4,9 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../public/reduxMart-logo2.png";
 import { useState } from "react";
-import { SmCartLoader } from "../../components/Loaders";
+
+import PasswordField from "../../components/PasswordField";
+import SubmitButton from "../../components/SubmitButton";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -54,21 +56,11 @@ const Login = () => {
               type='text'
             />
           </div>
-          <div className='field'>
-            <input
-              value={values.password}
-              onChange={(e) => handleChange(e)}
-              name='password'
-              placeholder='Password'
-              className='input-field'
-              type='password'
-            />
+          <div className='field' style={{ position: "relative" }}>
+            <PasswordField values={values} handleChange={handleChange} />
           </div>
-          <div className='btnn'>
-            <button type='submit' className='login-btn'>
-              {isLoading ? <SmCartLoader page='login' /> : "Submit"}
-            </button>
-          </div>
+
+          <SubmitButton isLoading={isLoading} />
           <div className='crt-acnt-box'>
             New to ReduxMart?{" "}
             <Link to='/signup' style={{ color: "rgb(122, 62, 246)" }} className='crt-acnt-link'>

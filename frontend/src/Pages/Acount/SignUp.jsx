@@ -2,10 +2,10 @@ import { useFormik } from "formik";
 import { SignupAPI } from "../../Utils/APIs";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-
 import logo from "../../../public/reduxMart-logo2.png";
 import { useState } from "react";
-import { SmCartLoader } from "../../components/Loaders";
+import PasswordField from "../../components/PasswordField";
+import SubmitButton from "../../components/SubmitButton";
 
 const SignUp = () => {
   const [isLoading, setIsloading] = useState(false);
@@ -41,12 +41,11 @@ const SignUp = () => {
   return (
     <>
       <p className='login-logo py-5'>
-        <img src={logo} width={"20%"} />
+        <img src={logo} width={"20%"} style={{ mixBlendMode: "plus-lighter" }} />
       </p>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <form className='form' onSubmit={handleSubmit}>
           <p id='heading'>Create new Account</p>
-          {/* <SignUpFields /> */}
 
           <div className='field'>
             <input
@@ -92,21 +91,11 @@ const SignUp = () => {
               type='text'
             />
           </div>
-          <div className='field'>
-            <input
-              value={values.password}
-              onChange={(e) => handleChange(e)}
-              name='password'
-              placeholder='Password'
-              className='input-field'
-              type='password'
-            />
+          <div className='field' style={{ position: "relative" }}>
+            <PasswordField values={values} handleChange={handleChange} />
           </div>
-          <div className='btnn'>
-            <button type='submit' className='login-btn'>
-              {isLoading ? <SmCartLoader page='login' /> : "Submit"}
-            </button>
-          </div>
+
+          <SubmitButton isLoading={isLoading} />
           <div className='crt-acnt-box'>
             Existing User?{" "}
             <Link to='/login' style={{ color: "rgb(122, 62, 246)" }} className='crt-acnt-link'>

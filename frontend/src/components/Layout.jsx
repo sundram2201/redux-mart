@@ -55,6 +55,7 @@ export const fetchUserData = async (dispatch, navigate) => {
 
 const Layout = (props) => {
   const [isFetchingUser, setIsFetchingUser] = useState(true);
+
   const dispatch = useDispatch();
   const userData = useUserData();
 
@@ -149,7 +150,7 @@ const Layout = (props) => {
                 Welcome, <b> {userData?.user?.fullname}</b>
               </div>
 
-              <div className=''>
+              <div className='bg-dark'>
                 <button className='grd-btn' onClick={() => handleLogout()}>
                   Logout
                 </button>

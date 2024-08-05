@@ -24,19 +24,6 @@ export const HandleCartAction = async (e, actionType, prodData, userId, setData,
     }
 
     fetchUserData(dispatch, navigate);
-
-    // if (page === "product") {
-    //   const { dispatch, navigate } = setData;
-    //   fetchUserData(dispatch, navigate);
-    // } else if (page === "cart") {
-    //   getCartList(setData);
-    // } else
-
-    if (page === "view") {
-      // const { setProdData, productID } = setData;
-      // GetProdById(setProdData, productID);
-      // fetchUserData(dispatch, navigate);
-    }
   } catch (err) {
     setIsloading(false);
   }
