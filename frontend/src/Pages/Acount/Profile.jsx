@@ -1,11 +1,13 @@
 import "./Account.css";
 import { TruckLoader } from "../../components/Loaders";
 import { useLayoutContext } from "../../components/Layout";
+import React from "react";
 
 const Profile = () => {
   const { userData } = useLayoutContext();
 
   const user = userData?.user;
+
   return (
     <section className='vh-100'>
       <div className='container py-5 h-100'>
@@ -23,7 +25,7 @@ const Profile = () => {
                       style={{ width: " 100px" }}
                     />
                   </div>
-                  <h4 className='mb-2'>{user.fullname}</h4>
+                  <h4 className='mb-2'>{user.fullname.toUpperCase()}</h4>
                   <div className='row my-3'>
                     <div className='col-md-6'>
                       <p className='text-start fw-bold'>Full name </p>

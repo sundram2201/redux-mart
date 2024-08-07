@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import SellIcon from "@mui/icons-material/Sell";
 import { HandleCartAction } from "../../Utils/ProductEvents/HandleCart";
 import { HandleFavAction } from "../../Utils/ProductEvents/HandleFav";
 import { SmCartLoader } from "../../components/Loaders";
 import useUserData from "../../Hooks/User";
+import { BaseUrl } from "../../Utils/APIs/BaseUrl";
 
 const ProductCard = ({ el, i, isInCart, isInFav }) => {
   const [isLoading, setIsloading] = useState(false);
@@ -21,7 +25,26 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
     } else {
       return val;
     }
-    e;
+  };
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
   };
 
   const HandleFavourites = (e, el) => {
@@ -78,6 +101,33 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
     );
   };
 
+  const CustomDot = ({ onClick, ...rest }) => {
+    const {
+      onMove,
+      index,
+      active,
+      carouselState: { currentSlide, deviceType },
+    } = rest;
+    const carouselItems = ["*", "*", "*"];
+
+    return (
+      <FiberManualRecordIcon
+        className={active ? "active" : "inactive"}
+        style={{
+          color: active ? "white" : "rgba(255,255,255,0.3)",
+          fontSize: "small",
+        }}
+        onClick={(e) => onClick(e)}>
+        {React.Children.toArray(carouselItems)[index]}
+      </FiberManualRecordIcon>
+    );
+  };
+
+  function getImageUrl(url) {
+    const fixUrl = `${BaseUrl}/uploads/`;
+    return fixUrl + url.split("/").at(-1);
+  }
+
   return (
     <div
       key={i}
@@ -93,9 +143,17 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
           <SellIcon fontSize='1px' /> {el.category}
         </span>
 
-        <div className='card-img'>
-          <div className='img'></div>
+        <div className='card-imfg'>
+          <div className='imsg' onClick={(e) => e.stopPropagation()}>
+            <Carousel showDots customDot={<CustomDot />} responsive={responsive} infinite={true}>
+              {el?.image.map((el, i) => {
+                const imageUrl = getImageUrl(el);
+                return <img src={imageUrl} className='  img-fluid' />;
+              })}
+            </Carousel>
+          </div>
         </div>
+
         <div className='card-title'>{el.name}</div>
         <div className='card-subtitle'>{ShortDesc(el.desc)}</div>
         <hr className='card-divider' />
@@ -106,7 +164,6 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
           <div
             className='con-like'
             onClick={(e) => {
-              // !isInFav;
               HandleFavourites(e, el);
             }}>
             <input className='like' type='checkbox' defaultChecked={isInFav} title='like' />
