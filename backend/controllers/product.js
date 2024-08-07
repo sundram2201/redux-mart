@@ -1,4 +1,6 @@
 const ProductDB = require("../models/product");
+const UserDB = require("../models/user");
+const { default: mongoose } = require("mongoose");
 
 exports.AddProduct = async (req, res) => {
   try {
@@ -32,8 +34,38 @@ exports.AllProducts = async (req, res) => {
   try {
     const userId = req.user;
 
-    const allProducts = await ProductDB.find({});
-    return res.status(200).json({ data: allProducts, message: "data fetched successfully" });
+    // const checkUser = await UserDB.findOne({ _id: userId });
+
+    // if (!checkUser) {
+    //   res.status(404).json({ status: false, message: "invalid user" });
+    // }
+
+    let message = `${req.protocol}:${req.get("host")}/uploads/`;
+
+    const momentList = await ProductDB.aggregate([
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          price: 1,
+          desc: 1,
+          category: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          image: {
+            $map: {
+              input: "$image",
+              as: "image",
+              in: {
+                $concat: [message, "$$image"],
+              },
+            },
+          },
+        },
+      },
+    ]);
+
+    return res.status(200).json({ data: momentList, message: "data fetched successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to retrieve products" });
