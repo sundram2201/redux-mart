@@ -246,10 +246,9 @@ button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right {
   bottom: 10%;
 }
 
-.css-kngd77 {
-  background-color: #000 !important;
+header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-1rcigon {
+  background: black !important;
 }
-
 .css-1ontqvh,
 .css-1f8bwsm {
   color: white !important;
@@ -264,16 +263,20 @@ button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right {
   background: linear-gradient(45deg, #7b3df6, #b700ff);
 }
 
-.MuiBottomNavigation-root.css-1bped5o-MuiBottomNavigation-root {
+.MuiBottomNavigation-root {
   position: fixed;
   bottom: 2%;
-  width: 96%;
+  width: 96% !important;
   background: linear-gradient(45deg, #7b3df6, #b700ff);
   color: #fff !important;
   z-index: 1000;
   margin-left: 2%;
   border-radius: 14px;
   box-shadow: rgba(123, 61, 246, 0.4) 0px 3px 12px, rgba(183, 0, 255, 0.4) 0px 3px 12px;
+}
+
+.css-118p9r0-MuiButtonBase-root-MuiBottomNavigationAction-root {
+  min-width: 20% !important;
 }
 .css-1bjk3jo-MuiButtonBase-root-MuiBottomNavigationAction-root.Mui-selected {
   color: #fff !important;

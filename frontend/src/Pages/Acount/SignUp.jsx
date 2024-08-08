@@ -41,7 +41,7 @@ const SignUp = () => {
   return (
     <>
       <p className='login-logo py-5'>
-        <img src={logo} width={"20%"} style={{ mixBlendMode: "plus-lighter" }} />
+        <img src={logo} style={{ mixBlendMode: "plus-lighter" }} />
       </p>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <form className='form' onSubmit={handleSubmit}>

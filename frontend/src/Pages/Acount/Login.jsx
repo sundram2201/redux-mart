@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <>
       <p className='login-logo py-5'>
-        <img src={logo} width={"20%"} style={{ mixBlendMode: "plus-lighter" }} />
+        <img src={logo} style={{ mixBlendMode: "plus-lighter" }} />
       </p>
       <div className='d-flex justify-content-center'>
         <form className='form' onSubmit={handleSubmit}>

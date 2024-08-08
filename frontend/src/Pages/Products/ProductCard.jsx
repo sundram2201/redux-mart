@@ -148,7 +148,7 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
             <Carousel showDots customDot={<CustomDot />} responsive={responsive} infinite={true}>
               {el?.image.map((el, i) => {
                 const imageUrl = getImageUrl(el);
-                return <img src={imageUrl} className='  img-fluid' />;
+                return <img key={i} src={imageUrl} className='  img-fluid' />;
               })}
             </Carousel>
           </div>

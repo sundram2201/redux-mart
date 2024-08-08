@@ -1,6 +1,7 @@
 import * as React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import logo from "../../public/reduxMart-logo2.png";
 
 import {
   ShoppingCartOutlined as ShoppingCartOutlinedIcon,
@@ -20,7 +21,6 @@ const LayoutContext = React.createContext();
 export const useLayoutContext = () => React.useContext(LayoutContext);
 
 export default function ResLayout({ children, userData }) {
-  // const [value, setValue] = React.useState("/");
   const navigate = useNavigate();
   const drawerWidth = 280;
 
@@ -30,18 +30,17 @@ export default function ResLayout({ children, userData }) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (e) => {
     setAnchorEl(null);
+    navigate(e);
   };
 
   const handleChange = (event, newValue) => {
-    // setValue(newValue);
-
     navigate(newValue);
   };
 
   return (
-    <div className='position-relative'>
+    <div className='position-relative' style={{ paddingTop: "7rem" }}>
       <AppBar
         position='fixed'
         className='top-small'
@@ -53,6 +52,7 @@ export default function ResLayout({ children, userData }) {
           <button className='grd-btn' onClick={() => navigate(-1)}>
             <ArrowBackIosNewOutlinedIcon />
           </button>
+          <img src={logo} alt='reduxMart logo' style={{ width: "20%" }} />
 
           <div>
             <Button
@@ -76,8 +76,8 @@ export default function ResLayout({ children, userData }) {
                 {userData?.user?.fullname.split(" ")[0]}
               </Typography>
 
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={() => handleClose("/profile")}>My account</MenuItem>
+              <MenuItem onClick={() => handleClose("/login")}>Logout</MenuItem>
             </Menu>
           </div>
         </Toolbar>
