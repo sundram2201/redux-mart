@@ -34,7 +34,7 @@ import useUserData from "../Hooks/User";
 import ResLayout from "./ResLayout";
 import useMediaQuery from "../Hooks/MediaQuery";
 
-const drawerWidth = 320;
+const drawerWidth = 280;
 
 const LayoutContext = createContext();
 
@@ -73,7 +73,6 @@ const Layout = (props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isSmallScreen = useMediaQuery("(max-width: 599px)");
-  console.log(isSmallScreen, ">isSmallScreen");
 
   useEffect(() => {
     fetchUserData(dispatch, navigate);
@@ -84,14 +83,6 @@ const Layout = (props) => {
     navigate("/login");
     localStorage.removeItem("token");
   };
-  // const handleDrawerClose = () => {
-  //   setIsClosing(true);
-  //   setMobileOpen(false);
-  // };
-
-  // const handleDrawerTransitionEnd = () => {
-  //   setIsClosing(false);
-  // };
 
   const handleNavigate = (name) => {
     name === "Home" && navigate("/");

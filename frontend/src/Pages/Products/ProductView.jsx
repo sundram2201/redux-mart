@@ -137,20 +137,11 @@ const ProductView = () => {
     </div>
   ) : (
     <div className='productContainer'>
-      <div className='flexBox' style={{ paddingTop: "7rem" }}>
-        {/* <p
-          className='wlcm-head w-100 text-start px-4 mb-3 d-flex justify-content-between align-items-center'
-          style={{ paddingTop: "7rem" }}>
-          <span>{prodData?.data?.name}</span>
-          <p className=' text-secondary' style={{ float: "right", fontSize: "18px" }}>
-            <SellIcon fontSize='small' /> {prodData?.data?.category}
-          </p>
-        </p> */}
-
+      <div className='flexBox'>
         <div className='form container'>
           <div className='row'>
-            <div className='col-md-6'>
-              <div className='h-100' style={{ alignContent: "space-evenly" }}>
+            <div className='col-md-6 prodDesc'>
+              <div className='h-100' style={{ width: "100%", alignContent: "space-evenly" }}>
                 <Carousel
                   showDots
                   customDot={<CustomDot img={prodData?.data?.image} />}

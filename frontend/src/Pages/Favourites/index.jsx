@@ -18,9 +18,9 @@ const index = () => {
   };
 
   return (
-    <div className='' style={{ padding: "7rem", margin: "0" }}>
+    <div className=''>
       <div className='row'>
-        <p class='wlcm-head w-100 text-white' style={{ paddingBottom: "2rem" }}>
+        <p className='wlcm-head w-100 text-white' style={{ paddingBottom: "2rem" }}>
           <span>Favourites</span>
         </p>
 

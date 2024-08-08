@@ -20,12 +20,13 @@ const LayoutContext = React.createContext();
 export const useLayoutContext = () => React.useContext(LayoutContext);
 
 export default function ResLayout({ children, userData }) {
-  const [value, setValue] = React.useState("recents");
+  // const [value, setValue] = React.useState("/");
   const navigate = useNavigate();
-  const drawerWidth = 320;
+  const drawerWidth = 280;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -34,10 +35,10 @@ export default function ResLayout({ children, userData }) {
   };
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    // setValue(newValue);
 
-  console.log(userData, ">?");
+    navigate(newValue);
+  };
 
   return (
     <div className='position-relative'>
@@ -74,7 +75,7 @@ export default function ResLayout({ children, userData }) {
               <Typography style={{ fontWeight: "bolder", padding: "6px 16px" }}>
                 {userData?.user?.fullname.split(" ")[0]}
               </Typography>
-              {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+
               <MenuItem onClick={handleClose}>My account</MenuItem>
               <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>
@@ -84,22 +85,12 @@ export default function ResLayout({ children, userData }) {
 
       {children}
 
-      <BottomNavigation className='btm-nv' sx={{ width: 500 }} value={value} onChange={handleChange}>
-        <BottomNavigationAction className='btm-btn' label='Home' value='home' icon={<HomeOutlinedIcon />} />
-        <BottomNavigationAction
-          className='btm-btn'
-          label='Profile'
-          value='profile'
-          icon={<AccountCircleOutlinedIcon />}
-        />
-        <BottomNavigationAction className='btm-btn' label='Add' value='add-product' icon={<AddOutlinedIcon />} />
-        <BottomNavigationAction className='btm-btn' label='Cart' value='cart' icon={<ShoppingCartOutlinedIcon />} />
-        <BottomNavigationAction
-          className='btm-btn'
-          label='Favourites'
-          value='favourites'
-          icon={<FavoriteBorderOutlinedIcon />}
-        />
+      <BottomNavigation className='btm-nv' sx={{ width: 500 }} onChange={handleChange}>
+        <BottomNavigationAction label='Home' value='/' icon={<HomeOutlinedIcon />} />
+        <BottomNavigationAction label='Profile' value='/profile' icon={<AccountCircleOutlinedIcon />} />
+        <BottomNavigationAction label='Add' value='/add-product' icon={<AddOutlinedIcon />} />
+        <BottomNavigationAction label='Cart' value='/cart' icon={<ShoppingCartOutlinedIcon />} />
+        <BottomNavigationAction label='Favourites' value='/favourites' icon={<FavoriteBorderOutlinedIcon />} />
       </BottomNavigation>
     </div>
   );

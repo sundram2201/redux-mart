@@ -137,7 +137,7 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
           navigate(`/product/${el?._id}`);
         }
       }}
-      className='col-md-3 my-3'>
+      className='col-lg-3 col-md-6 col-sm-6 col-12 my-3'>
       <div className='prod-card'>
         <span className='text-secondary text-end' style={{ fontSize: "14px" }}>
           <SellIcon fontSize='1px' /> {el.category}

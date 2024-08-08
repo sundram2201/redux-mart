@@ -265,7 +265,7 @@ button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right {
 }
 
 .MuiBottomNavigation-root.css-1bped5o-MuiBottomNavigation-root {
-  position: sticky;
+  position: fixed;
   bottom: 2%;
   width: 96%;
   background: linear-gradient(45deg, #7b3df6, #b700ff);

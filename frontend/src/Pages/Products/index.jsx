@@ -56,7 +56,7 @@ const index = () => {
   };
 
   return (
-    <div style={{ padding: "7rem" }}>
+    <div>
       <Tab getProdCate={getProdCate} />
       <ProductList prodCate={prodCate} userData={userData} ProductListing={ProductListing} />
       {/* <ResLayout /> */}
