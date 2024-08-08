@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   AppBar,
+  BottomNavigation,
+  BottomNavigationAction,
   Box,
   CssBaseline,
   Divider,
@@ -29,6 +31,8 @@ import { getUser } from "./Slices/UserSlice";
 import logo from "../../public/reduxMart-logo2.png";
 import aside from "../../public/aside.png";
 import useUserData from "../Hooks/User";
+import ResLayout from "./ResLayout";
+import useMediaQuery from "../Hooks/MediaQuery";
 
 const drawerWidth = 320;
 
@@ -56,12 +60,20 @@ export const fetchUserData = async (dispatch, navigate) => {
 const Layout = (props) => {
   const [isFetchingUser, setIsFetchingUser] = useState(true);
 
+  const [value, setValue] = React.useState("recents");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const dispatch = useDispatch();
   const userData = useUserData();
 
   const navigate = useNavigate();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isSmallScreen = useMediaQuery("(max-width: 599px)");
+  console.log(isSmallScreen, ">isSmallScreen");
 
   useEffect(() => {
     fetchUserData(dispatch, navigate);
@@ -131,7 +143,11 @@ const Layout = (props) => {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
-  return (
+  return isSmallScreen ? (
+    <LayoutContext.Provider value={{ userData, isFetchingUser, setIsFetchingUser }}>
+      <ResLayout userData={userData}>{props.children}</ResLayout>
+    </LayoutContext.Provider>
+  ) : (
     <Box sx={{ display: "flex" }} className='comp-box'>
       <CssBaseline />
       <AppBar
@@ -191,6 +207,7 @@ const Layout = (props) => {
       </Box>
       <Box component='main' sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <LayoutContext.Provider value={{ userData, isFetchingUser, setIsFetchingUser }}>
+          <div className='pt-5'>{/* <ResLayout /> */}</div>
           {props.children}
         </LayoutContext.Provider>
       </Box>

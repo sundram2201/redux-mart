@@ -207,6 +207,12 @@ p {
 
 .grd-btn:hover {
   background: linear-gradient(45deg, #7b3df6, #b700ff);
+  color: #fff !important;
+}
+
+.grd-btn {
+  color: #fff !important;
+  background-color: transparent;
 }
 
 .img-fluid {
@@ -246,7 +252,7 @@ button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right {
 
 .css-1ontqvh,
 .css-1f8bwsm {
-  color: white;
+  color: white !important;
 }
 
 .css-1uwabd6 {
@@ -256,4 +262,28 @@ button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right {
 
 .css-1uwabd6:hover {
   background: linear-gradient(45deg, #7b3df6, #b700ff);
+}
+
+.MuiBottomNavigation-root.css-1bped5o-MuiBottomNavigation-root {
+  position: sticky;
+  bottom: 2%;
+  width: 96%;
+  background: linear-gradient(45deg, #7b3df6, #b700ff);
+  color: #fff !important;
+  z-index: 1000;
+  margin-left: 2%;
+  border-radius: 14px;
+  box-shadow: rgba(123, 61, 246, 0.4) 0px 3px 12px, rgba(183, 0, 255, 0.4) 0px 3px 12px;
+}
+.css-1bjk3jo-MuiButtonBase-root-MuiBottomNavigationAction-root.Mui-selected {
+  color: #fff !important;
+}
+
+.top-small {
+  padding: 8px 0;
+  background: black !important;
+}
+
+.btm-nv button {
+  color: white;
 }

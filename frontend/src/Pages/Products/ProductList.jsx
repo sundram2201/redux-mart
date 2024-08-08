@@ -7,7 +7,7 @@ const ProductList = ({ userData, ProductListing }) => {
         {!userData ? (
           <>
             {[...Array(4)].map((_, index) => (
-              <div className='col-md-3 my-3' key={index}>
+              <div className='col-md-3 col-sm-6 my-3' key={index}>
                 <ProductSkeleton />
               </div>
             ))}

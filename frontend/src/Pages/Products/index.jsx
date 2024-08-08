@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { GetAllProductAPI } from "../../Utils/APIs";
 import useUserData from "../../Hooks/User";
 import ProductCard from "./ProductCard";
+import ResLayout from "../../components/ResLayout";
 
 export const getAllProducts = async (setAllProducts) => {
   try {
@@ -58,6 +59,7 @@ const index = () => {
     <div style={{ padding: "7rem" }}>
       <Tab getProdCate={getProdCate} />
       <ProductList prodCate={prodCate} userData={userData} ProductListing={ProductListing} />
+      {/* <ResLayout /> */}
     </div>
   );
 };
