@@ -239,3 +239,21 @@ button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right {
 .react-multi-carousel-dot-list {
   bottom: 10%;
 }
+
+.css-kngd77 {
+  background-color: #000 !important;
+}
+
+.css-1ontqvh,
+.css-1f8bwsm {
+  color: white;
+}
+
+.css-1uwabd6 {
+  margin: 0px 10px !important;
+  border-radius: 10px !important;
+}
+
+.css-1uwabd6:hover {
+  background: linear-gradient(45deg, #7b3df6, #b700ff);
+}
