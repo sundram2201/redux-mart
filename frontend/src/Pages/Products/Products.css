@@ -502,3 +502,7 @@
   /* text-decoration: underline; */
   text-transform: capitalize !important;
 }
+
+.product-view-carousel button {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}

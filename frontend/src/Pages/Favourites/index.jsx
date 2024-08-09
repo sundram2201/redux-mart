@@ -18,7 +18,7 @@ const index = () => {
   };
 
   return (
-    <div className=''>
+    <div className='container'>
       <div className='row'>
         <p className='wlcm-head w-100 text-white' style={{ paddingBottom: "2rem" }}>
           <span>Favourites</span>

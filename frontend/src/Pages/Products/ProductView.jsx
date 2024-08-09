@@ -145,7 +145,8 @@ const ProductView = () => {
             <div className='col-md-6 prodDesc'>
               <div className='h-100' style={{ width: "80%", margin: "0 auto", alignContent: "space-evenly" }}>
                 <Carousel
-                  arrows={false}
+                  className='product-view-carousel'
+                  arrows={isSmallScreen ? false : true}
                   showDots
                   customDot={<CustomDot img={prodData?.data?.image} />}
                   responsive={responsive}
