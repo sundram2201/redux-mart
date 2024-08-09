@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SmCartLoader, TruckLoader } from "../../components/Loaders";
 import { HandleCartAction } from "../../Utils/ProductEvents/HandleCart";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 import { BaseUrl } from "../../Utils/APIs/BaseUrl";
+import { useFormik } from "formik";
+import CheckoutCard from "./CheckoutCard";
+import { PaymentAPI } from "../../Utils/APIs";
+import { v4 as uuidv4 } from "uuid";
 
 const index = () => {
   const [isLoading, setIsloading] = useState(false);
+  const [amount, setAmount] = useState({ subTotal: 0, total: 0 });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData.data);
@@ -21,12 +27,6 @@ const index = () => {
       return text.slice(0, maxLength - 3) + "...";
     }
   }
-
-  const subTotal = () => {
-    return userData?.cartItems.reduce((acc, val) => {
-      return acc + val.price;
-    }, 0);
-  };
 
   const getImageUrl = (url) => {
     const fixUrl = `${BaseUrl}/uploads/`;
@@ -116,109 +116,25 @@ const index = () => {
     );
   };
 
-  const PaymentCard = () => {
-    return (
-      <div className='card-body'>
-        <div className='d-flex justify-content-between align-items-center mb-4'>
-          <h5 className='mb-0'>Card details</h5>
-          {/* <img
-            src='https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp'
-            className='img-fluid rounded-3'
-            style={{ width: "45px" }}
-            alt='Avatar'
-          /> */}
-        </div>
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      number: "",
+      expiration: "",
+      cvv: "",
+      orderId: uuidv4(),
+    },
+    validationSchema: "",
+    onSubmit: async (values) => {
+      const { cvv, orderId } = values;
+      const allValues = { cvv, orderId, userId, amount: amount.total * 100 };
 
-        <form className='mt-4 text-start'>
-          <div data-mdb-input-init className='form-outline form-white mb-4 '>
-            <label className='form-label ' htmlFor='typeName'>
-              Cardholder Name
-            </label>
-            <input
-              type='text'
-              id='typeName'
-              className='form-control form-control-lg'
-              size='17'
-              placeholder="Cardholder's Name"
-            />
-          </div>
-
-          <div data-mdb-input-init className='form-outline form-white mb-4'>
-            <label className='form-label' htmlFor='typeText'>
-              Card Number
-            </label>
-            <input
-              type='text'
-              id='typeText'
-              className='form-control form-control-lg'
-              size='17'
-              placeholder='1234 5678 9012 3457'
-              minLength='19'
-              maxLength='19'
-            />
-          </div>
-
-          <div className='row mb-4'>
-            <div className='col-md-6'>
-              <div data-mdb-input-init className='form-outline form-white'>
-                <label className='form-label' htmlFor='typeExp'>
-                  Expiration
-                </label>
-                <input
-                  type='text'
-                  id='typeExp'
-                  className='form-control form-control-lg'
-                  placeholder='MM/YYYY'
-                  size='7'
-                  minLength='7'
-                  maxLength='7'
-                />
-              </div>
-            </div>
-            <div className='col-md-6'>
-              <div data-mdb-input-init className='form-outline form-white'>
-                <label className='form-label' htmlFor='typeText'>
-                  Cvv
-                </label>
-                <input
-                  type='password'
-                  id='typeText'
-                  className='form-control form-control-lg'
-                  placeholder='&#9679;&#9679;&#9679;'
-                  size='1'
-                  minLength='3'
-                  maxLength='3'
-                />
-              </div>
-            </div>
-          </div>
-        </form>
-
-        <hr className='my-4' />
-
-        <div className='d-flex justify-content-between'>
-          <p className='mb-2'>Subtotal</p>
-          <p className='mb-2'>${subTotal()}</p>
-        </div>
-
-        <div className='d-flex justify-content-between'>
-          <p className='mb-2'>Shipping</p>
-          <p className='mb-2'>$20.00</p>
-        </div>
-
-        <div className='d-flex justify-content-between mb-4'>
-          <p className='mb-2'>Total (Incl. taxes)</p>
-          <p className='mb-2'>${subTotal() + 20}</p>
-        </div>
-
-        <hr className='my-4' />
-
-        <div className='btnn'>
-          <button className='login-btn'> Checkout</button>
-        </div>
-      </div>
-    );
-  };
+      try {
+        const res = await PaymentAPI(allValues);
+        console.log(res);
+      } catch (err) {}
+    },
+  });
 
   return (
     <div>
@@ -240,7 +156,7 @@ const index = () => {
                       <div
                         className='card bg-primary text-white rounded-3 payment-card'
                         style={{ padding: isSmallScreen && 0 }}>
-                        <PaymentCard />
+                        <CheckoutCard formik={formik} amount={amount} setAmount={setAmount} userData={userData} />
                       </div>
                     </div>
                   </div>

@@ -2,6 +2,7 @@ import { FILEPOST, GET, GETBYTOKEN, POST } from "./Interface";
 
 export const LoginAPI = (data) => POST("/api/v1/user/login-user", data);
 export const SignupAPI = (data) => POST("/api/v1/user/create-user", data);
+export const PaymentAPI = (data) => POST("/api/v1/payment/create-payment-intent", data);
 
 export const GetCartListAPI = () => GETBYTOKEN("/api/v1/cart/cart-list");
 
