@@ -29,11 +29,13 @@ const UserRoute = require("./routes/user");
 const CartRoute = require("./routes/cart");
 const FavRoute = require("./routes/favourites");
 const ProductRoute = require("./routes/product");
+const PaymentRoute = require("./routes/payments");
 
 app.use("/api/v1/user", UserRoute);
 app.use("/api/v1/cart", CartRoute);
 app.use("/api/v1/favourites", FavRoute);
 app.use("/api/v1/product", ProductRoute);
+app.use("/api/v1/payment", PaymentRoute);
 
 app.get("/", (_, res) => res.send(`Welcome to port : ${port}`));
 
