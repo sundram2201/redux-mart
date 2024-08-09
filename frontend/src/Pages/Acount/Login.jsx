@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import PasswordField from "../../components/PasswordField";
 import SubmitButton from "../../components/SubmitButton";
+import { useMediaQuery } from "@mui/material";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,11 +37,13 @@ const Login = () => {
     },
   });
 
+  const isSmallScreen = useMediaQuery("(max-width: 599px)");
+
   const { handleSubmit, values, handleChange } = formik;
   return (
     <>
       <p className='login-logo py-5'>
-        <img src={logo} style={{ mixBlendMode: "plus-lighter" }} />
+        <img src={logo} style={{ mixBlendMode: "plus-lighter", width: isSmallScreen ? "100%" : "" }} />
       </p>
       <div className='d-flex justify-content-center'>
         <form className='form' onSubmit={handleSubmit}>

@@ -114,7 +114,7 @@ const Layout = (props) => {
     <div className='drawer' style={{ background: ` url(${aside}) no-repeat right top #000`, height: "100vh" }}>
       <Toolbar />
       <Link to='/' className='navbar-brand wlcm-head'>
-        <img src={logo} alt='reduxMart logo' />
+        <img style={{width:"100%"}}  src={logo} alt='reduxMart logo' />
       </Link>
       <Divider />
       <List>

@@ -496,3 +496,9 @@
   display: inline-block;
   width: 10%;
 }
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  color: white !important;
+  /* text-decoration: underline; */
+  text-transform: capitalize !important;
+}

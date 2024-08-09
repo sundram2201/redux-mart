@@ -110,7 +110,7 @@
   color: #fff;
   border-radius: 20px;
   border-radius: 1em;
-  padding: 10px;
+  /* padding: 10px; */
   /* background: linear-gradient(-45deg, transparent, rgba(0, 0, 0, 0.2)); */
   background: #111;
   box-shadow: 4px 4px 15px rgba(1, 0, 0, 0.7), -4px -4px 15px rgba(255, 255, 255, 0.05);
@@ -180,4 +180,12 @@
 }
 .crt-acnt-link:hover {
   color: rgb(185, 0, 255) !important;
+}
+
+@media (max-width: 600px) {
+  .form {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
 }

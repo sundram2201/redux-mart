@@ -6,6 +6,7 @@ import logo from "../../../public/reduxMart-logo2.png";
 import { useState } from "react";
 import PasswordField from "../../components/PasswordField";
 import SubmitButton from "../../components/SubmitButton";
+import { useMediaQuery } from "@mui/material";
 
 const SignUp = () => {
   const [isLoading, setIsloading] = useState(false);
@@ -35,13 +36,14 @@ const SignUp = () => {
       }
     },
   });
+  const isSmallScreen = useMediaQuery("(max-width: 599px)");
 
   const { handleSubmit, values, handleChange } = formik;
 
   return (
     <>
       <p className='login-logo py-5'>
-        <img src={logo} style={{ mixBlendMode: "plus-lighter" }} />
+        <img src={logo} style={{ mixBlendMode: "plus-lighter", width: isSmallScreen ? "100%" : "" }} />
       </p>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <form className='form' onSubmit={handleSubmit}>
@@ -99,7 +101,7 @@ const SignUp = () => {
           <div className='crt-acnt-box'>
             Existing User?{" "}
             <Link to='/login' style={{ color: "rgb(122, 62, 246)" }} className='crt-acnt-link'>
-              Login here
+              Login
             </Link>
           </div>
         </form>

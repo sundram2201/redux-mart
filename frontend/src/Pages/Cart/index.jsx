@@ -3,6 +3,8 @@ import { SmCartLoader, TruckLoader } from "../../components/Loaders";
 import { HandleCartAction } from "../../Utils/ProductEvents/HandleCart";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
+import { BaseUrl } from "../../Utils/APIs/BaseUrl";
 
 const index = () => {
   const [isLoading, setIsloading] = useState(false);
@@ -10,6 +12,7 @@ const index = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData.data);
   const userId = userData?.user?._id;
+  const isSmallScreen = useMediaQuery("(max-width: 599px)");
 
   function truncateText(text, maxLength = 60) {
     if (text.length <= maxLength) {
@@ -23,6 +26,11 @@ const index = () => {
     return userData?.cartItems.reduce((acc, val) => {
       return acc + val.price;
     }, 0);
+  };
+
+  const getImageUrl = (url) => {
+    const fixUrl = `${BaseUrl}/uploads/`;
+    return fixUrl + url.split("/").at(-1);
   };
 
   const CartList = () => {
@@ -39,25 +47,38 @@ const index = () => {
           </div>
         ) : (
           userData?.cartItems?.map((el, i) => {
+            const imageUrl = getImageUrl(el.image[0]);
+
             return (
               <div key={i} className='card mb-3'>
                 <div className='card-body'>
-                  <div className='d-flex justify-content-between'>
-                    <div className='d-flex flex-row align-items-center'>
+                  <div className={`${!isSmallScreen && "d-flex justify-content-between"}`}>
+                    <div className={`${!isSmallScreen && "d-flex flex-row align-items-center"}`}>
                       <div>
                         <img
+                          key={i}
+                          src={imageUrl}
+                          className='img-fluid rounded-3'
+                          alt='Shopping item'
+                          style={{ width: !isSmallScreen && "80px", height: !isSmallScreen && "80px" }}
+                        />
+
+                        {/* <img
                           src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp'
                           className='img-fluid rounded-3'
                           alt='Shopping item'
-                          style={{ width: "65px" }}
-                        />
+                          style={{ width: "80px", height: "80px" }}
+                        /> */}
                       </div>
                       <div className='ms-3 text-start'>
                         <h5>{el?.name}</h5>
                         <p className='small mb-0'>{truncateText(el?.desc)}</p>
                       </div>
                     </div>
-                    <div className='d-flex flex-row align-items-center'>
+                    <div
+                      className={`d-flex flex-row align-items-center ${
+                        isSmallScreen && "mt-2 justify-content-between"
+                      }`}>
                       <div style={{ width: "80px" }}>
                         <h5 className='mb-0'>${el?.price}</h5>
                       </div>
@@ -100,12 +121,12 @@ const index = () => {
       <div className='card-body'>
         <div className='d-flex justify-content-between align-items-center mb-4'>
           <h5 className='mb-0'>Card details</h5>
-          <img
+          {/* <img
             src='https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp'
             className='img-fluid rounded-3'
             style={{ width: "45px" }}
             alt='Avatar'
-          />
+          /> */}
         </div>
 
         <form className='mt-4 text-start'>
@@ -201,7 +222,7 @@ const index = () => {
 
   return (
     <div>
-      <section className='h-100 h-custom' style={{ paddingTop: "7rem" }}>
+      <section className='h-100 h-custom'>
         <div className='container py-5 h-100'>
           <div className='row d-flex justify-content-center align-items-center h-100'>
             <div className='col'>
@@ -216,7 +237,9 @@ const index = () => {
                       <CartList />
                     </div>
                     <div className='col-lg-5'>
-                      <div className='card bg-primary text-white rounded-3 payment-card'>
+                      <div
+                        className='card bg-primary text-white rounded-3 payment-card'
+                        style={{ padding: isSmallScreen && 0 }}>
                         <PaymentCard />
                       </div>
                     </div>

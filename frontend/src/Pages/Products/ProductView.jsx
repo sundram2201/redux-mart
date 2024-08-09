@@ -10,6 +10,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { BaseUrl } from "../../Utils/APIs/BaseUrl";
+import { useMediaQuery } from "@mui/material";
 
 export const GetProdById = async (setProdData, productID) => {
   setProdData({ loading: true });
@@ -130,19 +131,21 @@ const ProductView = () => {
   useEffect(() => {
     GetProdById(setProdData, productID);
   }, []);
+  const isSmallScreen = useMediaQuery("(max-width: 599px)");
 
   return !prodData?.data ? (
     <div className='text-white d-flex justify-content-center align-items-center vh-100'>
       <TruckLoader />
     </div>
   ) : (
-    <div className='productContainer'>
+    <div className='productContainer' style={{ width: isSmallScreen && "100%" }}>
       <div className='flexBox'>
-        <div className='form container'>
-          <div className='row'>
+        <div className={`form ${!isSmallScreen && "container"}`} style={{ boxShadow: isSmallScreen && "unset" }}>
+          <div className='row w-100'>
             <div className='col-md-6 prodDesc'>
-              <div className='h-100' style={{ width: "100%", alignContent: "space-evenly" }}>
+              <div className='h-100' style={{ width: "80%", margin: "0 auto", alignContent: "space-evenly" }}>
                 <Carousel
+                  arrows={false}
                   showDots
                   customDot={<CustomDot img={prodData?.data?.image} />}
                   responsive={responsive}
@@ -155,7 +158,7 @@ const ProductView = () => {
               </div>
             </div>
 
-            <div className=' col-md-6 prodDesc p-5 ms-3 text-start'>
+            <div className={`col-md-6 prodDesc ${!isSmallScreen && "p-5 ms-3"} p-4 text-start`}>
               <div>
                 <p className='wlcm-head w-100 text-start  mb-3'>
                   <span>{prodData?.data?.name}</span>{" "}

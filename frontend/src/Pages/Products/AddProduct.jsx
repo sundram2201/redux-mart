@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { AddProductAPI } from "../../Utils/APIs";
 import { useNavigate } from "react-router-dom";
 import SubmitButton from "../../components/SubmitButton";
+import { useMediaQuery } from "@mui/material";
 
 const AddProduct = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -45,6 +46,8 @@ const AddProduct = () => {
 
   const { handleChange, handleSubmit, values, errors } = formik;
 
+  const isSmallScreen = useMediaQuery("(max-width: 599px)");
+
   return (
     <>
       <p className='wlcm-head w-100 text-white' style={{ padding: "5rem 0 3rem 0" }}>
@@ -53,7 +56,7 @@ const AddProduct = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <form className='form' onSubmit={handleSubmit}>
           <p id='heading'>Add here!</p>
-          <div className='d-flex'>
+          <div className={`d-flex ${isSmallScreen ? "flex-wrap flex-column" : ""}`}>
             <div className='field'>
               <input
                 name='name'

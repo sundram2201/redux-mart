@@ -231,6 +231,7 @@ p {
 button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--left,
 button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right {
   padding: 0;
+  background: transparent;
 }
 
 .react-multiple-carousel__arrow::before {

@@ -84,6 +84,7 @@ export default function ResLayout({ children, userData }) {
       </AppBar>
 
       {children}
+      <div style={{ height: "6rem" }}></div>
 
       <BottomNavigation className='btm-nv' sx={{ width: 500 }} onChange={handleChange}>
         <BottomNavigationAction label='Home' value='/' icon={<HomeOutlinedIcon />} />
