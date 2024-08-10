@@ -9,10 +9,15 @@ import { useFormik } from "formik";
 import CheckoutCard from "./CheckoutCard";
 import { PaymentAPI } from "../../Utils/APIs";
 import { v4 as uuidv4 } from "uuid";
+import toast from "react-hot-toast";
+import animationData from "../../../public/order-complete-anim.json";
+import Lottie from "react-lottie";
+import PaymentSuccessful from "./PaymentSuccessful";
 
 const index = () => {
   const [isLoading, setIsloading] = useState(false);
   const [amount, setAmount] = useState({ subTotal: 0, total: 0 });
+  const [isPaymentDone, setIsPaymentDone] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -131,7 +136,9 @@ const index = () => {
 
       try {
         const res = await PaymentAPI(allValues);
-        console.log(res);
+        if (res.status === 200) {
+          setIsPaymentDone(true);
+        }
       } catch (err) {}
     },
   });
@@ -139,6 +146,8 @@ const index = () => {
   return (
     <div>
       <section className='h-100 h-custom'>
+        {isPaymentDone && <PaymentSuccessful />}
+
         <div className='container py-5 h-100'>
           <div className='row d-flex justify-content-center align-items-center h-100'>
             <div className='col'>

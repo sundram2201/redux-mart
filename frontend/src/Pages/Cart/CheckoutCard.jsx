@@ -114,7 +114,9 @@ const CheckoutCard = ({ formik, userData, amount, setAmount }) => {
         <hr className='my-4' />
 
         <div className='btnn d-flex justify-content-center'>
-          <button className='login-btn'> Checkout</button>
+          <button className='login-btn' type='submit'>
+            Checkout
+          </button>
         </div>
       </form>
     </div>

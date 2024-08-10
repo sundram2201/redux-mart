@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { GetAllProductAPI } from "../../Utils/APIs";
 import useUserData from "../../Hooks/User";
 import ProductCard from "./ProductCard";
-import Lottie from "react-lottie";
-import animationData from "../../../public/order-complete-anim.json";
 
 export const getAllProducts = async (setAllProducts) => {
   try {
@@ -56,23 +54,8 @@ const index = () => {
     return setProdCate(value);
   };
 
-  const defaultOptions = {
-    speed: 0.9,
-
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   return (
     <div>
-      <div>
-        <Lottie options={defaultOptions} height={400} width={400} />
-      </div>
-
       <Tab getProdCate={getProdCate} />
       <ProductList prodCate={prodCate} userData={userData} ProductListing={ProductListing} />
       {/* <ResLayout /> */}
