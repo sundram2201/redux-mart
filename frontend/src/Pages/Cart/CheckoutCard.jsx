@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const CheckoutCard = ({ formik, userData, amount, setAmount }) => {
   let shippingCharges = 20.55;
-
   const { handleSubmit, values, handleChange } = formik;
 
   useEffect(() => {

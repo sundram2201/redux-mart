@@ -1,11 +1,10 @@
 import "./Account.css";
 import { TruckLoader } from "../../components/Loaders";
-import { useLayoutContext } from "../../components/Layout";
+import { useLayoutContext } from "../../components/Layouts";
 import React from "react";
 
 const Profile = () => {
   const { userData } = useLayoutContext();
-
   const user = userData?.user;
 
   return (

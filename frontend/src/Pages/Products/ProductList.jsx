@@ -1,6 +1,7 @@
 import { ProductSkeleton } from "../../components/Loaders";
+import { ProductListing } from "../../Utils/HelperFunctions";
 
-const ProductList = ({ userData, ProductListing }) => {
+const ProductList = ({ userData, filteredProducts }) => {
   return (
     <div className='container'>
       <div className='row justify-content-center'>
@@ -13,7 +14,7 @@ const ProductList = ({ userData, ProductListing }) => {
             ))}
           </>
         ) : (
-          <ProductListing />
+          ProductListing(filteredProducts)
         )}
       </div>
     </div>

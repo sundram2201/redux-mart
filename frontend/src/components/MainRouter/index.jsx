@@ -5,7 +5,7 @@ import NotFound from "../404.jsx";
 import Profile from "../../Pages/Acount/Profile.jsx";
 import Cart from "../../Pages/Cart";
 import Favourites from "../../Pages/Favourites";
-import AddProduct from "../../Pages/Products/AddProduct.jsx";
+import AddProduct from "../../Pages/Products/AddProduct";
 import ProductView from "../../Pages/Products/ProductView.jsx";
 import { Toaster } from "react-hot-toast";
 import Private from "./PrivateRouting.jsx";

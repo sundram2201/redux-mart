@@ -1,9 +1,9 @@
-import { AppBar, Menu, MenuItem, Toolbar, Typography, useMediaQuery } from "@mui/material";
-import React from "react";
+import { Menu, MenuItem } from "@mui/material";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
+import useSmScreen from "../../components/Hooks/useSmSceen";
 
-// TabItem component for rendering individual tab
 const TabItem = ({ id, value, label, onClick }) => (
   <>
     <input
@@ -22,6 +22,8 @@ const TabItem = ({ id, value, label, onClick }) => (
 );
 
 const Tab = ({ getProdCate }) => {
+  const isSmallScreen = useSmScreen();
+
   const tabs = [
     { id: "1", value: "", label: "All" },
     { id: "2", value: "men", label: "Men" },
@@ -29,7 +31,7 @@ const Tab = ({ getProdCate }) => {
     { id: "4", value: "kids", label: "Kids" },
   ];
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,10 +47,8 @@ const Tab = ({ getProdCate }) => {
     }
   };
 
-  const isSmallScreen = useMediaQuery("(max-width: 599px)");
-
   return (
-    <div style={{ display: "flex", justifyContent: "center" }} className='dddddddddddddd'>
+    <div style={{ display: "flex", justifyContent: "center" }} className=''>
       {isSmallScreen ? (
         <div>
           <Button
@@ -80,12 +80,7 @@ const Tab = ({ getProdCate }) => {
               <MenuItem key={id} value={value} onClick={() => handleClose(value)}>
                 {label}
               </MenuItem>
-
-              // <TabItem key={id} id={`${id}`} value={value} label={label} onClick={getProdCate} />
             ))}
-            {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem> */}
           </Menu>
         </div>
       ) : (

@@ -4,14 +4,14 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../public/reduxMart-logo2.png";
 import { useState } from "react";
-
-import PasswordField from "../../components/PasswordField";
-import SubmitButton from "../../components/SubmitButton";
-import { useMediaQuery } from "@mui/material";
+import PasswordField from "../../components/FormComps/PasswordField";
+import SubmitButton from "../../components/FormComps/SubmitButton";
+import useSmScreen from "../../components/Hooks/useSmSceen";
 
 const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsloading] = useState(false);
+  const isSmallScreen = useSmScreen();
 
   const formik = useFormik({
     initialValues: {
@@ -36,8 +36,6 @@ const Login = () => {
       }
     },
   });
-
-  const isSmallScreen = useMediaQuery("(max-width: 599px)");
 
   const { handleSubmit, values, handleChange } = formik;
   return (
@@ -70,7 +68,7 @@ const Login = () => {
               Create Account
             </Link>
           </div>
-          {/* <hr style={{ borderColor: "red" }} />
+          <hr style={{ borderColor: "red" }} />
           <div className='crt-acnt-box'>
             <p style={{ margin: "0" }}>
               user : <b>redux_mart</b>
@@ -78,7 +76,7 @@ const Login = () => {
             <p style={{ margin: "0" }}>
               pass : <b>123</b>
             </p>
-          </div> */}
+          </div>
         </form>
       </div>
     </>

@@ -1,31 +1,14 @@
-import * as React from "react";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import logo from "../../public/reduxMart-logo2.png";
-
-import {
-  ShoppingCartOutlined as ShoppingCartOutlinedIcon,
-  AddOutlined as AddOutlinedIcon,
-  AccountCircleOutlined as AccountCircleOutlinedIcon,
-  HomeOutlined as HomeOutlinedIcon,
-  ArrowBackIosNewOutlined as ArrowBackIosNewOutlinedIcon,
-  FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-} from "@mui/icons-material";
+import React, { useState } from "react";
 import { AppBar, Button, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
-
+import { ArrowBackIosNewOutlined as ArrowBackIosNewOutlinedIcon } from "@mui/icons-material";
+import logo from "../../../../public/reduxMart-logo2.png";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
 
-const LayoutContext = React.createContext();
-
-export const useLayoutContext = () => React.useContext(LayoutContext);
-
-export default function ResLayout({ children, userData }) {
-  const navigate = useNavigate();
-  const drawerWidth = 280;
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const TopBar = ({ data }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const drawerWidth = 280;
+  const { userData, navigate } = data;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,12 +18,8 @@ export default function ResLayout({ children, userData }) {
     navigate(e);
   };
 
-  const handleChange = (event, newValue) => {
-    navigate(newValue);
-  };
-
   return (
-    <div className='position-relative' style={{ paddingTop: "7rem" }}>
+    <div>
       <AppBar
         position='fixed'
         className='top-small'
@@ -82,17 +61,8 @@ export default function ResLayout({ children, userData }) {
           </div>
         </Toolbar>
       </AppBar>
-
-      {children}
-      <div style={{ height: "6rem" }}></div>
-
-      <BottomNavigation className='btm-nv' sx={{ width: 500 }} onChange={handleChange}>
-        <BottomNavigationAction label='Home' value='/' icon={<HomeOutlinedIcon />} />
-        <BottomNavigationAction label='Profile' value='/profile' icon={<AccountCircleOutlinedIcon />} />
-        <BottomNavigationAction label='Add' value='/add-product' icon={<AddOutlinedIcon />} />
-        <BottomNavigationAction label='Cart' value='/cart' icon={<ShoppingCartOutlinedIcon />} />
-        <BottomNavigationAction label='Favourites' value='/favourites' icon={<FavoriteBorderOutlinedIcon />} />
-      </BottomNavigation>
     </div>
   );
-}
+};
+
+export default TopBar;

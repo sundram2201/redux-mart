@@ -1,5 +1,5 @@
 import React from "react";
-import { SmCartLoader } from "./Loaders";
+import { SmCartLoader } from "../Loaders";
 
 const SubmitButton = ({ isLoading }) => {
   return (

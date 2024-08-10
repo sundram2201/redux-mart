@@ -4,13 +4,14 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../public/reduxMart-logo2.png";
 import { useState } from "react";
-import PasswordField from "../../components/PasswordField";
-import SubmitButton from "../../components/SubmitButton";
-import { useMediaQuery } from "@mui/material";
+import PasswordField from "../../components/FormComps/PasswordField";
+import SubmitButton from "../../components/FormComps/SubmitButton";
+import useSmScreen from "../../components/Hooks/useSmSceen";
 
 const SignUp = () => {
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
+  const isSmallScreen = useSmScreen();
 
   const formik = useFormik({
     initialValues: {
@@ -36,7 +37,6 @@ const SignUp = () => {
       }
     },
   });
-  const isSmallScreen = useMediaQuery("(max-width: 599px)");
 
   const { handleSubmit, values, handleChange } = formik;
 

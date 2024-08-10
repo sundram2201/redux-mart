@@ -3,27 +3,15 @@ import { GetProdByIdAPI } from "../../Utils/APIs";
 import { SmCartLoader, TruckLoader } from "../../components/Loaders";
 import SellIcon from "@mui/icons-material/Sell";
 import { useDispatch } from "react-redux";
-import { HandleCartAction } from "../../Utils/ProductEvents/HandleCart";
+import { HandleCartAction } from "../../Utils/HelperFunctions";
 import { useNavigate } from "react-router-dom";
-import useUserData from "../../Hooks/User";
+import useUserData from "../../components/Hooks/useUserData";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { BaseUrl } from "../../Utils/APIs/BaseUrl";
 import { useMediaQuery } from "@mui/material";
-
-export const GetProdById = async (setProdData, productID) => {
-  setProdData({ loading: true });
-
-  try {
-    const res = await GetProdByIdAPI(productID);
-    if (res.status == 200) {
-      setProdData({ data: res.data.data, loading: false });
-    }
-  } catch (err) {
-    setProdData({ loading: false });
-  }
-};
+import useSmScreen from "../../components/Hooks/useSmSceen";
+import { getImageUrl, GetProdById } from "../../Utils/HelperFunctions";
 
 const ProductView = () => {
   const [isLoading, setIsloading] = useState(false);
@@ -33,11 +21,11 @@ const ProductView = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const productID = window.location.href.split("/").at(-1);
+  const isSmallScreen = useSmScreen();
 
   const CartBtn = () => {
-    const isInCart = userData?.cartItems.some((item) => {
-      return item?._id === productID;
-    });
+    const isInCart = userData?.cartItems.some((item) => item?._id === productID);
+
     return (
       <button
         type='submit'
@@ -55,7 +43,6 @@ const ProductView = () => {
 
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 1,
     },
@@ -72,28 +59,6 @@ const ProductView = () => {
       items: 1,
     },
   };
-  // const CustomDot = ({ img, onClick, ...rest }) => {
-  //   const {
-  //     onMove,
-  //     index,
-  //     active,
-  //     carouselState: { currentSlide, deviceType },
-  //   } = rest;
-  //   const carouselItems = ["*", "*", "*"];
-
-  //   console.log(img, "prodDataddd");
-  //   return (
-  //     <FiberManualRecordIcon
-  //       className={active ? "active" : "inactive"}
-  //       style={{
-  //         color: active ? "white" : "rgba(255,255,255,0.3)",
-  //         fontSize: "small",
-  //       }}
-  //       onClick={(e) => onClick(e)}>
-  //       {React.Children.toArray(carouselItems)[index]}
-  //     </FiberManualRecordIcon>
-  //   );
-  // };
 
   const CustomDot = ({ onClick, active, index, img }) => {
     const imageUrl = getImageUrl(img[index]);
@@ -123,15 +88,9 @@ const ProductView = () => {
     );
   };
 
-  function getImageUrl(url) {
-    const fixUrl = `${BaseUrl}/uploads/`;
-    return fixUrl + url.split("/").at(-1);
-  }
-
   useEffect(() => {
     GetProdById(setProdData, productID);
   }, []);
-  const isSmallScreen = useMediaQuery("(max-width: 599px)");
 
   return !prodData?.data ? (
     <div className='text-white d-flex justify-content-center align-items-center vh-100'>

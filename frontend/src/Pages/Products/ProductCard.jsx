@@ -4,13 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-
 import SellIcon from "@mui/icons-material/Sell";
-import { HandleCartAction } from "../../Utils/ProductEvents/HandleCart";
-import { HandleFavAction } from "../../Utils/ProductEvents/HandleFav";
+import { HandleCartAction } from "../../Utils/HelperFunctions";
+import { HandleFavAction } from "../../Utils/HelperFunctions";
 import { SmCartLoader } from "../../components/Loaders";
-import useUserData from "../../Hooks/User";
-import { BaseUrl } from "../../Utils/APIs/BaseUrl";
+import useUserData from "../../components/Hooks/useUserData";
+import { getImageUrl } from "../../Utils/HelperFunctions";
 
 const ProductCard = ({ el, i, isInCart, isInFav }) => {
   const [isLoading, setIsloading] = useState(false);
@@ -19,13 +18,7 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
   const userData = useUserData();
   const userId = userData?.user?._id;
 
-  const ShortDesc = (val) => {
-    if (val.length > 80) {
-      return val.slice(0, 80) + "...";
-    } else {
-      return val;
-    }
-  };
+  const ShortDesc = (val) => (val.length > 80 ? `${val.slice(0, 80)}...` : val);
 
   const responsive = {
     superLargeDesktop: {
@@ -47,86 +40,53 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
     },
   };
 
-  const HandleFavourites = (e, el) => {
-    let actionType = Boolean();
-    if (e.target.checked) {
-      actionType = "add";
-    } else {
-      actionType = "delete";
-    }
+  const HandleFavourites = (e) => {
+    const actionType = e.target.checked ? "add" : "delete";
     HandleFavAction(actionType, el, userId, { dispatch, navigate }, "fav");
   };
 
   const CartActionButton = () => {
-    return isInCart ? (
-      <button
-        className='card-btn sub-icon'
-        onClick={(e) => {
-          HandleCartAction(e, "delete", el, userId, { dispatch, navigate, setIsloading }, "product");
-        }}>
-        {isLoading ? (
-          <SmCartLoader />
-        ) : (
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16'
-            height='16'
-            fill='currentColor'
-            className='bi bi-cart-dash'
-            viewBox='0 0 16 16'>
-            <path d='M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z' />
-            <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0' />
-          </svg>
-        )}
-      </button>
-    ) : (
-      <button
-        className='card-btn plus-icon'
-        onClick={(e) => HandleCartAction(e, "add", el, userId, { dispatch, navigate, setIsloading }, "product")}>
-        {isLoading ? (
-          <SmCartLoader />
-        ) : (
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16'
-            height='16'
-            fill='currentColor'
-            className='bi bi-cart-plus'
-            viewBox='0 0 16 16'>
-            <path d='M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z' />
-            <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0' />
-          </svg>
-        )}
-      </button>
-    );
-  };
-
-  const CustomDot = ({ onClick, ...rest }) => {
-    const {
-      onMove,
-      index,
-      active,
-      carouselState: { currentSlide, deviceType },
-    } = rest;
-    const carouselItems = ["*", "*", "*"];
+    const handleClick = (e) => {
+      const action = isInCart ? "delete" : "add";
+      HandleCartAction(e, action, el, userId, { dispatch, navigate, setIsloading }, "product");
+    };
 
     return (
-      <FiberManualRecordIcon
-        className={active ? "active" : "inactive"}
-        style={{
-          color: active ? "white" : "rgba(255,255,255,0.3)",
-          fontSize: "small",
-        }}
-        onClick={(e) => onClick(e)}>
-        {React.Children.toArray(carouselItems)[index]}
-      </FiberManualRecordIcon>
+      <button className={`card-btn ${isInCart ? "sub-icon" : "plus-icon"}`} onClick={handleClick}>
+        {isLoading ? (
+          <SmCartLoader />
+        ) : (
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='16'
+            height='16'
+            fill='currentColor'
+            className={`bi ${isInCart ? "bi-cart-dash" : "bi-cart-plus"}`}
+            viewBox='0 0 16 16'>
+            {isInCart ? (
+              <>
+                <path d='M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z' />
+                <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0' />
+              </>
+            ) : (
+              <>
+                <path d='M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z' />
+                <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0' />
+              </>
+            )}
+          </svg>
+        )}
+      </button>
     );
   };
 
-  function getImageUrl(url) {
-    const fixUrl = `${BaseUrl}/uploads/`;
-    return fixUrl + url.split("/").at(-1);
-  }
+  const CustomDot = ({ onClick, index, active }) => (
+    <FiberManualRecordIcon
+      className={active ? "active" : "inactive"}
+      style={{ color: active ? "white" : "rgba(255,255,255,0.3)", fontSize: "small" }}
+      onClick={onClick}
+    />
+  );
 
   return (
     <div
@@ -148,7 +108,7 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
             <Carousel showDots customDot={<CustomDot />} responsive={responsive} infinite={true}>
               {el?.image.map((el, i) => {
                 const imageUrl = getImageUrl(el);
-                return <img key={i} src={imageUrl} className='  img-fluid' />;
+                return <img key={i} src={imageUrl} className='img-fluid' />;
               })}
             </Carousel>
           </div>
@@ -161,11 +121,7 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
           <div className='card-price'>
             <span>$</span> {el.price}
           </div>
-          <div
-            className='con-like'
-            onClick={(e) => {
-              HandleFavourites(e, el);
-            }}>
+          <div className='con-like' onClick={(e) => HandleFavourites(e, el)}>
             <input className='like' type='checkbox' defaultChecked={isInFav} title='like' />
             <div className='checkmark'>
               <svg xmlns='http://www.w3.org/2000/svg' className='outline' viewBox='0 0 24 24'>

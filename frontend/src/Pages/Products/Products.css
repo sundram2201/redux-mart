@@ -84,8 +84,6 @@
 
 .prod-card {
   padding: 2em;
-  /* background: linear-gradient(-45deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)) !important; */
-
   background: #111 !important;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7), -4px -4px 15px rgba(255, 255, 255, 0.05) !important;
   border: 0px solid !important;
