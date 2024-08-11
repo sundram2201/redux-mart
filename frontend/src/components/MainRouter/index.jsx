@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Products from "../../Pages/Products";
+import Home from "../../Pages/Home";
 import Login from "../../Pages/Acount/Login.jsx";
 import NotFound from "../404.jsx";
 import Profile from "../../Pages/Acount/Profile.jsx";
@@ -22,7 +22,7 @@ const index = () => {
             path='/'
             element={
               <Private>
-                <Products />
+                <Home />
               </Private>
             }
           />

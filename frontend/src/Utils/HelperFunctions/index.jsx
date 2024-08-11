@@ -91,7 +91,7 @@ export const ProductListing = (ProdArr) => {
   const cartItems = userData?.cartItems;
   const favItems = userData?.favItems;
 
-  return ProdArr.length ? (
+  return ProdArr?.length ? (
     ProdArr.map((el, i) => {
       const isInCart = cartItems?.some((cartItem) => cartItem?._id === el?._id);
       const isInFav = favItems?.some((favItem) => favItem?._id === el?._id);

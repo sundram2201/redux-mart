@@ -48,7 +48,7 @@ const Tab = ({ getProdCate }) => {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }} className=''>
+    <div style={{ display: "flex", justifyContent: "start" }} className='mb-2'>
       {isSmallScreen ? (
         <div>
           <Button
