@@ -16,8 +16,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import logo from "../../../../public/reduxMart-logo2.png";
-import { Link } from "react-router-dom";
+import logo from "../../../../public/RM-logo.png";
+import { Link, useNavigate } from "react-router-dom";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 import {
@@ -28,6 +28,8 @@ import {
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
 } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
+import { hasToken, PrivateNavigation } from "../../../Utils/HelperFunctions";
+import toast from "react-hot-toast";
 
 const drawerWidth = 240;
 
@@ -94,8 +96,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 }));
 
 export default function MiniDrawer({ navigate, userData }) {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const isLoggedIn = hasToken();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    toast("You've been logged out");
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -123,12 +135,12 @@ export default function MiniDrawer({ navigate, userData }) {
     }
   };
 
-  const handleNavigate = (name, index) => {
+  const handleNavigation = (name, index) => {
     name === "Home" || index === 0 ? navigate("/") : false;
-    name === "Profile" || index === 1 ? navigate("/profile") : false;
-    name === "Add Product" || index === 2 ? navigate("/add-product") : false;
-    name === "Cart" || index === 3 ? navigate("/cart") : false;
-    name === "Favourites" || index === 4 ? navigate("/favourites") : false;
+    name === "Profile" || index === 1 ? PrivateNavigation("/profile", "navigation", navigate) : false;
+    name === "Add Product" || index === 2 ? PrivateNavigation("/add-product", "navigation", navigate) : false;
+    name === "Cart" || index === 3 ? PrivateNavigation("/cart", "navigation", navigate) : false;
+    name === "Favourites" || index === 4 ? PrivateNavigation("/favourites", "navigation", navigate) : false;
   };
 
   const UserTooltip = () => {
@@ -139,7 +151,7 @@ export default function MiniDrawer({ navigate, userData }) {
 
     return (
       <Tooltip title={user || guest} arrow>
-        <Link to='/' className='user-link'>
+        <Link to='/profile' className='user-link'>
           {user ? userFChar : guestFChar}
         </Link>
       </Tooltip>
@@ -172,9 +184,15 @@ export default function MiniDrawer({ navigate, userData }) {
               </div>
 
               <div className='bg-dark'>
-                <button className='grd-btn' onClick={() => handleLogout()}>
-                  <LogoutOutlinedIcon />
-                </button>
+                {isLoggedIn ? (
+                  <button className='grd-btn' onClick={() => handleLogout()}>
+                    <LogoutOutlinedIcon /> Logout
+                  </button>
+                ) : (
+                  <button className='grd-btn' onClick={() => handleLogin()}>
+                    <LogoutOutlinedIcon /> Login
+                  </button>
+                )}
               </div>
             </div>
           </Typography>
@@ -191,7 +209,7 @@ export default function MiniDrawer({ navigate, userData }) {
         <List>
           {["Home", "Profile", "Add Product", "Cart", "Favourites"].map((text, index) => (
             <ListItem
-              onClick={(e) => handleNavigate(e.target.textContent, index)}
+              onClick={(e) => handleNavigation(e.target.textContent, index)}
               key={text}
               disablePadding
               sx={{ display: "block" }}>

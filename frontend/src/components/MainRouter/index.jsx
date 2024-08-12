@@ -9,6 +9,7 @@ import AddProduct from "../../Pages/Products/AddProduct";
 import ProductView from "../../Pages/Products/ProductView.jsx";
 import { Toaster } from "react-hot-toast";
 import Private from "./PrivateRouting.jsx";
+import Public from "./PublicRouting.jsx";
 import SignUp from "../../Pages/Acount/SignUp.jsx";
 
 const index = () => {
@@ -21,17 +22,17 @@ const index = () => {
           <Route
             path='/'
             element={
-              <Private>
-                <Home />
-              </Private>
+              <Public>
+                <Home />{" "}
+              </Public>
             }
           />
           <Route
             path='/product/:productId'
             element={
-              <Private>
+              <Public>
                 <ProductView />
-              </Private>
+              </Public>
             }
           />
           <Route

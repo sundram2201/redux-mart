@@ -7,12 +7,15 @@ import { v4 as uuidv4 } from "uuid";
 import PaymentSuccessful from "./PaymentSuccessful";
 import useSmScreen from "../../components/Hooks/useSmSceen";
 import CartList from "./CartList";
+import { hasToken } from "../../Utils/HelperFunctions";
+import Identifier from "../../components/Identifier";
 
 const index = () => {
   const [isLoading, setIsloading] = useState(false);
   const [amount, setAmount] = useState({ subTotal: 0, total: 0 });
   const [isPaymentDone, setIsPaymentDone] = useState(false);
   const isSmallScreen = useSmScreen();
+  const isLoggedIn = hasToken();
 
   const userData = useSelector((state) => state.userData.data);
   const userId = userData?.user?._id;
@@ -41,7 +44,7 @@ const index = () => {
     },
   });
 
-  return (
+  return isLoggedIn ? (
     <section className='h-100 h-custom'>
       <div className='container py-5 h-100'>
         <div className='row d-flex justify-content-center align-items-center h-100'>
@@ -71,6 +74,8 @@ const index = () => {
       </div>
       {isPaymentDone && <PaymentSuccessful />}
     </section>
+  ) : (
+    <Identifier pageText={"In order to view cart"} />
   );
 };
 

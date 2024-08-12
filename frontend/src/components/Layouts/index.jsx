@@ -1,4 +1,3 @@
-import { useMediaQuery } from "@mui/material";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import DesktopLayout from "./DesktopLayout";
 import MobileLayout from "./MobileLayout";
@@ -12,7 +11,7 @@ import useSmScreen from "../Hooks/useSmSceen";
 const LayoutContext = createContext();
 export const useLayoutContext = () => useContext(LayoutContext);
 
-export const fetchUserData = async (dispatch, navigate) => {
+export const fetchUserData = async (dispatch) => {
   try {
     const res = await GetUserDataAPI();
     if (res.status === 200) {
@@ -20,7 +19,7 @@ export const fetchUserData = async (dispatch, navigate) => {
     }
   } catch (err) {
     if (err.response.status === 401) {
-      navigate("/login");
+      // navigate("/login");
       localStorage.removeItem("token");
     }
   }
@@ -30,11 +29,10 @@ const index = ({ children }) => {
   const [isFetchingUser, setIsFetchingUser] = useState(true);
   const dispatch = useDispatch();
   const userData = useUserData();
-  const navigate = useNavigate();
   const isSmallScreen = useSmScreen();
 
   useEffect(() => {
-    fetchUserData(dispatch, navigate);
+    fetchUserData(dispatch);
   }, []);
 
   return (

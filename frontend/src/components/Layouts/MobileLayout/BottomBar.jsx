@@ -8,11 +8,14 @@ import {
   HomeOutlined as HomeOutlinedIcon,
   FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
 } from "@mui/icons-material";
+import { PrivateNavigation } from "../../../Utils/HelperFunctions";
 
 const BottomBar = ({ navigate }) => {
-  const handleChange = (event, newValue) => {
-    navigate(newValue);
+  const nav = navigate;
+  const handleChange = (event, newValue, actionType = "navigation", nav) => {
+    PrivateNavigation(newValue, actionType, navigate);
   };
+
   return (
     <div>
       <BottomNavigation className='btm-nv' sx={{ width: 500 }} onChange={handleChange}>

@@ -50,7 +50,7 @@ p {
 }
 .wlcm-head img {
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 @keyframes logo-spin {
@@ -215,6 +215,10 @@ p {
   color: #fff !important;
   background-color: red;
   padding: 5px;
+  font-size: 14px;
+}
+.grd-btn svg {
+  font-size: 14px;
 }
 
 .grd-btn:hover {
@@ -400,8 +404,6 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
   cursor: pointer;
   z-index: 1;
   height: 100%;
-
-  /* border-radius: 50%; */
 }
 
 .scroll-arrow-left {
@@ -468,4 +470,36 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
   width: 75%;
   margin: 0 auto;
   color: #7e7e7e;
+}
+
+.login-toast-btn {
+  background: transparent;
+  padding: 0;
+}
+
+@media (max-width: 600px) {
+  .scroll-arrow-left,
+  .scroll-arrow-right {
+    position: absolute;
+    bottom: -3%;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+    transform: translateX(-15%);
+    height: 10%;
+    width: unset;
+    top: 100%;
+  }
+
+  .scroll-arrow-left {
+    left: 15%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent);
+  }
+
+  .scroll-arrow-right {
+    right: 15%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05));
+  }
 }

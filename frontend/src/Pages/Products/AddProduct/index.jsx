@@ -4,10 +4,13 @@ import toast from "react-hot-toast";
 import { AddProductAPI } from "../../../Utils/APIs";
 import { useNavigate } from "react-router-dom";
 import AddProductForm from "./AddProductForm";
+import { hasToken } from "../../../Utils/HelperFunctions";
+import Identifier from "../../../components/Identifier";
 
 const index = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const navigate = useNavigate();
+  const isLoggedIn = hasToken();
 
   const formik = useFormik({
     initialValues: { name: "", desc: "", price: "", category: "", image: [] },

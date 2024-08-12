@@ -12,50 +12,97 @@ import {
 import { BaseUrl } from "../APIs/BaseUrl";
 import { fetchUserData } from "../../components/Layouts";
 
-export const HandleCartAction = async (e, actionType, prodData, userId, setData, page) => {
+export const hasToken = () => Boolean(localStorage.getItem("token"));
+
+export const LoginToast = (navigate) => {
+  return toast(
+    (t) => (
+      <span>
+        ⚠️ Please{" "}
+        <b>
+          {" "}
+          <button
+            className='crt-acnt-link login-toast-btn'
+            onClick={() => {
+              toast.dismiss(t.id);
+              navigate("/login");
+            }}>
+            Login
+          </button>
+        </b>{" "}
+        first
+      </span>
+    ),
+    {
+      duration: 6000,
+      id: "001",
+    }
+  );
+};
+
+export const PrivateNavigation = (navUrl, actionType, navigate) => {
+  if (hasToken()) {
+    if (actionType === "navigation") {
+      navigate(navUrl);
+    } else {
+      LoginToast(navigate);
+    }
+  } else {
+    LoginToast(navigate);
+  }
+};
+export const HandleCartAction = async (e, actionType, prodData, userId, setData) => {
   e.stopPropagation();
 
   const { dispatch, navigate, setIsloading } = setData;
   setIsloading(true);
   try {
-    const data = { userId, prodData };
-    let res = null;
+    if (hasToken()) {
+      const data = { userId, prodData };
+      let res = null;
 
-    if (actionType === "delete") {
-      res = await DeleteItemFromCartAPI(data);
-    } else if (actionType === "add") {
-      res = await AddToCartAPI(data);
-    }
+      if (actionType === "delete") {
+        res = await DeleteItemFromCartAPI(data);
+      } else if (actionType === "add") {
+        res = await AddToCartAPI(data);
+      }
+      if (res.status === 201 || res.status === 200) {
+        toast.success(res.data.message);
+        setIsloading(false);
+      }
 
-    if (res.status === 201 || res.status === 200) {
-      toast.success(res.data.message);
+      fetchUserData(dispatch);
+    } else {
+      LoginToast(navigate);
       setIsloading(false);
     }
-
-    fetchUserData(dispatch, navigate);
   } catch (err) {
     setIsloading(false);
   }
 };
-export const HandleFavAction = async (actionType, prodData, userId, setData, page) => {
+export const HandleFavAction = async (actionType, prodData, userId, setData) => {
   const { dispatch, navigate } = setData;
 
   try {
-    const data = { userId, prodData };
-    let res = null;
+    if (hasToken()) {
+      const data = { userId, prodData };
+      let res = null;
 
-    if (actionType === "delete") {
-      res = await DeleteItemFromFavAPI(data);
-    } else if (actionType === "add") {
-      res = await AddToFavAPI(data);
+      if (actionType === "delete") {
+        res = await DeleteItemFromFavAPI(data);
+      } else if (actionType === "add") {
+        res = await AddToFavAPI(data);
+      }
+
+      if (res.status === 201 || res.status === 200) {
+        toast.success(res.data.message);
+        // setIsloading(false);
+      }
+
+      fetchUserData(dispatch);
+    } else {
+      LoginToast(navigate);
     }
-
-    if (res.status === 201 || res.status === 200) {
-      toast.success(res.data.message);
-      // setIsloading(false);
-    }
-
-    fetchUserData(dispatch, navigate);
   } catch (err) {
     // setIsloading(false);
   }

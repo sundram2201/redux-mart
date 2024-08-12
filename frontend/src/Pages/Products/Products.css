@@ -288,6 +288,9 @@
   fill: var(--red);
   position: absolute;
 }
+.gray-like {
+  fill: gray;
+}
 
 .con-like .filled {
   animation: kfr-filled 0.5s;

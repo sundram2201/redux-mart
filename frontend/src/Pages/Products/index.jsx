@@ -27,7 +27,7 @@ const index = () => {
       <h1 className='text-start mb-5'>Shop By Category</h1>
 
       <Tab getProdCate={getProdCate} />
-      <ProductList userData={userData} filteredProducts={filteredProducts} />
+      <ProductList filteredProducts={filteredProducts} />
     </div>
   );
 };

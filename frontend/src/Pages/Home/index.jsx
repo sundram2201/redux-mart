@@ -12,6 +12,7 @@ import col3 from "../../../public/col-3.jpg";
 
 import { motion } from "framer-motion";
 import AnimatedText from "../../components/Animations";
+import { ProductSkeleton, TruckLoader } from "../../components/Loaders";
 
 const index = () => {
   const [allProducts, setAllProducts] = useState({ loading: true, data: null });
@@ -74,57 +75,66 @@ const index = () => {
 
   const textPartsNewArrivals = [{ text: "New Arrivals", style: null }];
   const textPartsCollections = [{ text: "Collections", style: null }];
-  // const textPartsNewArrivals = [{ text: "New Arrivals", style: null }];
 
   return (
     <div className='container'>
       <div className='banner-box'>
         <img className='w-100  ' src={banner} alt='banner' />
       </div>
-      <div className='my-5'>
+      <div className='mt-5'>
         <AnimatedText parts={textPartsHead} />
       </div>
       <p className='rdxm-desc'>
-        This is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text
-        lorem ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum this is
-        dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text lorem
-        ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy
-        text lorem ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum{" "}
-        this is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text lorem ipsum this is dummy text
-        lorem ipsum this is dummy text lorem ipsum this is
+        ReduxMart is a modern e-commerce application developed using the MERN stack, designed to simulate a real-world
+        online store experience. This project highlights my proficiency in full-stack development, from designing a
+        responsive frontend with React and Redux to building a scalable backend using Node.js, Express, and MongoDB.
+        ReduxMart offers features such as user authentication, product management, and a streamlined checkout process,
+        all while ensuring smooth performance and a user-friendly interface. This project represents my dedication to
+        creating high-quality web applications that meet the needs of both businesses and end-users.
+        <br />
+        <br />
+        Feel free to explore the code on my
+        <a
+          href='https://github.com/sundram2201'
+          target='_blank'
+          style={{ color: "rgb(122, 62, 246)" }}
+          className='crt-acnt-link'>
+          {" "}
+          GitHub profile
+        </a>
+        , and if you find this project helpful or inspiring, please consider giving it a star! 🌟
       </p>
       <hr className='my-5 text-white' />
       {/* New arrivals  */}
       <div>
         <h1 className='text-start  mb-5'>
-          {" "}
           <AnimatedText parts={textPartsNewArrivals} />
         </h1>
-
-        <div className='scroll-container'>
-          <div className='left'>
-            <button className='scroll-arrow-left' onClick={handleScrollLeft}>
-              <ArrowBackIosNewOutlinedIcon />
-            </button>
+        {NewestProducts?.length ? (
+          <div className='scroll-container'>
+            <div className='left'>
+              <button className='scroll-arrow-left' onClick={handleScrollLeft}>
+                <ArrowBackIosNewOutlinedIcon />
+              </button>
+            </div>
+            <div className='scroll-row' id='product-scroll-row'>
+              {NewestProducts.map((product, index) => (
+                <ProductCard key={index} el={product} />
+              ))}
+            </div>
+            <div className='right'>
+              <button className='scroll-arrow-right' onClick={handleScrollRight}>
+                <ArrowForwardIosOutlinedIcon />
+              </button>
+            </div>
           </div>
-
-          <div className='scroll-row' id='product-scroll-row'>
-            {NewestProducts ? (
-              NewestProducts.map((product, index) => <ProductCard key={index} el={product} />)
-            ) : (
-              <div className='text-center my-5 text-secondary fw-bold'>
-                <i>No Product Found...</i>
-              </div>
-            )}
+        ) : (
+          <div className='d-flex justify-content-center w-100'>
+            <TruckLoader />
           </div>
-
-          <div className='right'>
-            <button className='scroll-arrow-right' onClick={handleScrollRight}>
-              <ArrowForwardIosOutlinedIcon />
-            </button>
-          </div>
-        </div>
+        )}
       </div>
+
       {/* Collecitons  */}
       <hr className='my-5 text-white' />
       <div>

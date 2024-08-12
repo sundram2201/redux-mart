@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import Layout from "../Layouts";
-// import ResLayout from "../ResLayout";
+import toast from "react-hot-toast";
 
 const Private = ({ children }) => {
   const hasToken = localStorage.getItem("token");

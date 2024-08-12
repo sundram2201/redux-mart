@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { SignupAPI } from "../../Utils/APIs";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../public/reduxMart-logo2.png";
+import logo from "../../../public/RM-logo2.png";
 import { useState } from "react";
 import PasswordField from "../../components/FormComps/PasswordField";
 import SubmitButton from "../../components/FormComps/SubmitButton";
@@ -43,7 +43,7 @@ const SignUp = () => {
   return (
     <>
       <p className='login-logo py-5'>
-        <img src={logo} style={{ mixBlendMode: "plus-lighter", width: isSmallScreen ? "100%" : "" }} />
+        <img src={logo} style={{ width: isSmallScreen ? "50%" : "20%" }} />
       </p>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <form className='form' onSubmit={handleSubmit}>
