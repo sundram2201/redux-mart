@@ -8,7 +8,6 @@ import PaymentSuccessful from "./PaymentSuccessful";
 import useSmScreen from "../../components/Hooks/useSmSceen";
 import CartList from "./CartList";
 import { hasToken } from "../../Utils/HelperFunctions";
-import Identifier from "../../components/Identifier";
 
 const index = () => {
   const [isLoading, setIsloading] = useState(false);
@@ -46,8 +45,8 @@ const index = () => {
 
   return (
     <section className=' h-custom'>
-      <div className='container vh-100'>
-        <div className='row d-flex justify-content-center align-items-center h-100'>
+      <div className='container '>
+        <div className='row d-flex justify-content-center align-items-center '>
           <div className='col'>
             <div className='card'>
               <div className='card-body p-4'>

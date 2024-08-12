@@ -5,7 +5,6 @@ import { AddProductAPI } from "../../../Utils/APIs";
 import { useNavigate } from "react-router-dom";
 import AddProductForm from "./AddProductForm";
 import { hasToken } from "../../../Utils/HelperFunctions";
-import Identifier from "../../../components/Identifier";
 
 const index = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);

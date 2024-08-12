@@ -282,7 +282,7 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
   box-shadow: rgba(123, 61, 246, 0.4) 0px 3px 12px, rgba(183, 0, 255, 0.4) 0px 3px 12px;
 }
 
-.css-118p9r0-MuiButtonBase-root-MuiBottomNavigationAction-root {
+.MuiButtonBase-root {
   min-width: 20% !important;
 }
 .css-1bjk3jo-MuiButtonBase-root-MuiBottomNavigationAction-root.Mui-selected {
@@ -518,9 +518,10 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
     font-size: 25px;
   }
 
-  .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  #basic-button {
     min-width: 0px !important;
     padding: 0 0 0 10px !important;
+    justify-content: end !important;
   }
 
   .rdxm-desc {

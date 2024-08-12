@@ -120,7 +120,7 @@ const ProductView = () => {
 
             <div className={`col-md-6 prodDesc ${!isSmallScreen && "p-5 ms-3"} p-4 text-start`}>
               <div>
-                <p className='wlcm-head w-100 text-start  mb-3'>
+                <p className='wlcm-head w-100 text-start  mb-3' style={{ lineHeight: "1.2" }}>
                   <span>{prodData?.data?.name}</span>{" "}
                   <p className=' text-secondary d-block' style={{ fontSize: "18px" }}>
                     <SellIcon fontSize='small' /> {prodData?.data?.category}

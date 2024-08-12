@@ -4,12 +4,13 @@ import ProductList from "./ProductList";
 import { useEffect, useState } from "react";
 import useUserData from "../../components/Hooks/useUserData";
 import { getAllProducts } from "../../Utils/HelperFunctions";
+import AnimatedText from "../../components/Animations";
 
-const index = () => {
+const index = ({ styles, isSMallScreen }) => {
   const [prodCate, setProdCate] = useState("");
   const [allProducts, setAllProducts] = useState({ loading: true, data: [] });
   const getProdCate = (value) => setProdCate(value);
-  const userData = useUserData();
+  const textPartsCategory = [{ text: "Shop by category", style: styles.newArrivalsHeading }];
 
   const filteredProducts = allProducts?.data.filter((el) => {
     if (!prodCate) {
@@ -24,8 +25,9 @@ const index = () => {
 
   return (
     <div>
-      <h1 className='text-start mb-5'>Shop By Category</h1>
-
+      <h1 className={isSMallScreen ? "text-center mb-3" : "text-start mb-5"}>
+        <AnimatedText parts={textPartsCategory} />
+      </h1>
       <Tab getProdCate={getProdCate} />
       <ProductList filteredProducts={filteredProducts} />
     </div>
