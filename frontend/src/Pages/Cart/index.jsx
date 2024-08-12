@@ -44,9 +44,9 @@ const index = () => {
     },
   });
 
-  return isLoggedIn ? (
-    <section className='h-100 h-custom'>
-      <div className='container py-5 h-100'>
+  return (
+    <section className=' h-custom'>
+      <div className='container vh-100'>
         <div className='row d-flex justify-content-center align-items-center h-100'>
           <div className='col'>
             <div className='card'>
@@ -74,8 +74,6 @@ const index = () => {
       </div>
       {isPaymentDone && <PaymentSuccessful />}
     </section>
-  ) : (
-    <Identifier pageText={"In order to view cart"} />
   );
 };
 

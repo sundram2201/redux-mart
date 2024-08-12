@@ -9,6 +9,10 @@ const CartList = ({ data }) => {
   const navigate = useNavigate();
   const { userData, isSmallScreen, isLoading, setIsloading } = data;
 
+  const userId = userData?.user?._id;
+
+  console.log(userId, "?userId", userData);
+
   const truncateText = (text, maxLength = 60) =>
     text.length <= maxLength ? text : `${text.slice(0, maxLength - 3)}...`;
 

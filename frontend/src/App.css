@@ -482,6 +482,10 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
   background: black;
 }
 
+.gtrx-0 {
+  --bs-gutter-x: 0rem !important;
+}
+
 @media (max-width: 600px) {
   .scroll-arrow-left,
   .scroll-arrow-right {
@@ -530,5 +534,13 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
     color: white !important;
     /* text-decoration: underline; */
     text-transform: capitalize !important;
+  }
+  .siteHeading {
+    font-size: 4rem;
+  }
+  .kid-col-head,
+  .men-col-head,
+  .women-col-head {
+    font-size: 2rem;
   }
 }

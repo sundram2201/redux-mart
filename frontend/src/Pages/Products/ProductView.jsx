@@ -99,8 +99,8 @@ const ProductView = () => {
   ) : (
     <div className='productContainer' style={{ width: isSmallScreen && "100%" }}>
       <div className='flexBox'>
-        <div className={`form ${!isSmallScreen && "container"}`} style={{ boxShadow: isSmallScreen && "unset" }}>
-          <div className='row w-100'>
+        <div className={`productForm ${!isSmallScreen && "container"}`} style={{ boxShadow: isSmallScreen && "unset" }}>
+          <div className='row gtrx-0 w-100'>
             <div className='col-md-6 prodDesc'>
               <div className='h-100' style={{ width: "80%", margin: "0 auto", alignContent: "space-evenly" }}>
                 <Carousel

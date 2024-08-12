@@ -8,7 +8,7 @@ const Profile = () => {
   const user = userData?.user;
 
   return (
-    <section className='vh-100'>
+    <section className=''>
       <div className='container py-5 h-100'>
         <div className='row d-flex justify-content-center align-items-center h-100'>
           {!user ? (

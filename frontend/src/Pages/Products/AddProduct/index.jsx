@@ -37,7 +37,7 @@ const index = () => {
 
   return (
     <>
-      <p className='wlcm-head w-100 text-white' style={{ padding: "5rem 0 3rem 0" }}>
+      <p className='wlcm-head w-100 text-white'>
         Want to add your own <span>Product?</span>
       </p>
       <div style={{ display: "flex", justifyContent: "center" }}>

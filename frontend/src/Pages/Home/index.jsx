@@ -9,32 +9,16 @@ import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutl
 import col1 from "../../../public/col-1.jpg";
 import col2 from "../../../public/col-2.jpg";
 import col3 from "../../../public/col-3.jpg";
-
-import { motion } from "framer-motion";
 import AnimatedText from "../../components/Animations";
-import { ProductSkeleton, TruckLoader } from "../../components/Loaders";
+import { TruckLoader } from "../../components/Loaders";
+import useSmScreen from "../../components/Hooks/useSmSceen";
+import useUserData from "../../components/Hooks/useUserData";
 
 const index = () => {
   const [allProducts, setAllProducts] = useState({ loading: true, data: null });
-
-  useEffect(() => {
-    getAllProducts(setAllProducts);
-  }, []);
-
-  const NewestProducts = allProducts?.data?.sort((a, b) => {
-    return new Date(b.createdAt) - new Date(a.createdAt);
-  });
-
-  const handleScrollRight = () => {
-    const scrollRow = document.getElementById("product-scroll-row");
-    scrollRow.scrollLeft += 250;
-  };
-
-  const handleScrollLeft = () => {
-    const scrollRow = document.getElementById("product-scroll-row");
-    scrollRow.scrollLeft -= 250;
-  };
-
+  const isSMallScreen = useSmScreen();
+  const userData = useUserData();
+  const { cartItems, favItems } = userData || {};
   const padding = "1rem";
 
   const styles = {
@@ -52,13 +36,13 @@ const index = () => {
     },
     headingTop: {
       color: "white",
-      fontSize: "24px",
+      fontSize: isSMallScreen ? "20px" : "24px",
       textTransform: "uppercase",
       letterSpacing: "3px",
       fontWeight: "600",
     },
     headingBtm: {
-      fontSize: "6rem",
+      fontSize: isSMallScreen ? "4rem" : "6rem",
       letterSpacing: "3px",
       fontWeight: "900",
       background: "linear-gradient(45deg, #b700ff, #7b3df6)",
@@ -67,21 +51,62 @@ const index = () => {
       color: "transparent",
       lineHeight: 1,
     },
+    newArrivalsHeading: {
+      fontSize: isSMallScreen ? "1em" : "unset",
+    },
   };
   const textPartsHead = [
     { text: "Welcome to ", style: styles.headingTop },
     { text: "ReduxMart", style: styles.headingBtm },
   ];
+  const textPartsNewArrivals = [{ text: "New Arrivals", style: styles.newArrivalsHeading }];
+  const textPartsCollections = [{ text: "Collections", style: styles.newArrivalsHeading }];
 
-  const textPartsNewArrivals = [{ text: "New Arrivals", style: null }];
-  const textPartsCollections = [{ text: "Collections", style: null }];
+  const NewestProducts = allProducts?.data?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  const handleScroll = (direction) => {
+    const scrollRow = document.getElementById("product-scroll-row");
+    scrollRow.scrollLeft += direction === "right" ? 250 : -250;
+  };
+
+  const renderProducts = () => {
+    return NewestProducts.map((product, index) => {
+      const isInCart = cartItems?.some((cartItem) => cartItem?._id === product?._id);
+      const isInFav = favItems?.some((favItem) => favItem?._id === product?._id);
+
+      return <ProductCard key={index} el={product} isInCart={isInCart} isInFav={isInFav} />;
+    });
+  };
+
+  const renderCollectionImages = () => (
+    <div className='row justify-content-center'>
+      <div className='col-md-4 d-flex p-0 flex-column justify-content-between'>
+        {[col1, col2].map((col, i) => (
+          <div key={i} className='flex-fill banner-box position-relative' style={styles.images}>
+            <img src={col} className='coll-img' alt={`collection-${i}`} />
+            <h1 className='position-absolute women-col-head'>{i === 0 ? "T-Shirts" : "Kids"}</h1>
+            <div className='empty' style={styles.layer}></div>
+          </div>
+        ))}
+      </div>
+      <div className='col-md-5 banner-box position-relative right-coll' style={styles.images}>
+        <img src={col3} className='coll-img' alt='right collection' />
+        <h1 className='position-absolute men-col-head'>Men Hoodies</h1>
+        <div className='empty' style={styles.layer}></div>
+      </div>
+    </div>
+  );
+
+  useEffect(() => {
+    getAllProducts(setAllProducts);
+  }, []);
 
   return (
     <div className='container'>
       <div className='banner-box'>
         <img className='w-100  ' src={banner} alt='banner' />
       </div>
-      <div className='mt-5'>
+      <div className='mt-5 siteHeading'>
         <AnimatedText parts={textPartsHead} />
       </div>
       <p className='rdxm-desc'>
@@ -107,23 +132,21 @@ const index = () => {
       <hr className='my-5 text-white' />
       {/* New arrivals  */}
       <div>
-        <h1 className='text-start  mb-5'>
+        <h1 className={isSMallScreen ? "text-center mb-3" : "text-start mb-5"}>
           <AnimatedText parts={textPartsNewArrivals} />
         </h1>
         {NewestProducts?.length ? (
           <div className='scroll-container'>
             <div className='left'>
-              <button className='scroll-arrow-left' onClick={handleScrollLeft}>
+              <button className='scroll-arrow-left' onClick={() => handleScroll("left")}>
                 <ArrowBackIosNewOutlinedIcon />
               </button>
             </div>
             <div className='scroll-row' id='product-scroll-row'>
-              {NewestProducts.map((product, index) => (
-                <ProductCard key={index} el={product} />
-              ))}
+              {renderProducts()}
             </div>
             <div className='right'>
-              <button className='scroll-arrow-right' onClick={handleScrollRight}>
+              <button className='scroll-arrow-right' onClick={() => handleScroll("right")}>
                 <ArrowForwardIosOutlinedIcon />
               </button>
             </div>
@@ -138,30 +161,10 @@ const index = () => {
       {/* Collecitons  */}
       <hr className='my-5 text-white' />
       <div>
-        <h1 className='text-start mb-5'>
-          {" "}
+        <h1 className={isSMallScreen ? "text-center mb-3" : "text-start mb-5"}>
           <AnimatedText parts={textPartsCollections} />
         </h1>
-        <div className='row justify-content-center'>
-          <div className='col-md-4 d-flex  p-0 flex-column justify-content-between'>
-            <div className='flex-fill  banner-box position-relative' style={styles.images}>
-              <img src={col1} className='coll-img' alt='right collection' />
-              <h1 className='position-absolute women-col-head'>T-Shirts</h1>
-              {/* <p className='position-absolute women-col-head'>T-Shirts</p> */}
-              <div className='empty' style={styles.layer}></div>
-            </div>
-            <div className='flex-fill  banner-box position-relative' style={styles.images}>
-              <img src={col2} className='coll-img' alt='right collection' />
-              <h1 className='position-absolute kid-col-head'>Kids</h1>
-              <div className='empty' style={styles.layer}></div>
-            </div>
-          </div>
-          <div className='col-md-5  banner-box position-relative right-coll' style={styles.images}>
-            <img src={col3} className='coll-img' alt='right collection' />
-            <h1 className='position-absolute men-col-head'>Men Hoodies</h1>
-            <div className='empty' style={styles.layer}></div>
-          </div>
-        </div>
+        {renderCollectionImages()}
       </div>
       <hr className='my-5 text-white' />
       {/* Product cateogry */}
