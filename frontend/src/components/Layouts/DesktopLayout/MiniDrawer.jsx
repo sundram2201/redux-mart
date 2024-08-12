@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -30,6 +30,8 @@ import {
 import { Tooltip } from "@mui/material";
 import { hasToken, PrivateNavigation } from "../../../Utils/HelperFunctions";
 import toast from "react-hot-toast";
+import { fetchUserData } from "..";
+import { useDispatch } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -96,12 +98,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 }));
 
 export default function MiniDrawer({ navigate, userData }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const theme = useTheme();
   const isLoggedIn = hasToken();
 
   const handleLogout = () => {
     localStorage.clear();
+    navigate("/");
     toast("You've been logged out");
   };
 
@@ -152,11 +156,15 @@ export default function MiniDrawer({ navigate, userData }) {
     return (
       <Tooltip title={user || guest} arrow>
         <Link to='/profile' className='user-link'>
-          {user ? userFChar : guestFChar}
+          {isLoggedIn ? userFChar : guestFChar}
         </Link>
       </Tooltip>
     );
   };
+
+  useEffect(() => {
+    fetchUserData(dispatch);
+  }, []);
 
   return (
     <Box sx={{ display: "flex" }}>

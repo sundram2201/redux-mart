@@ -49,7 +49,7 @@ const TopBar = ({ data }) => {
           ml: { sm: `${drawerWidth}px` },
         }}>
         <Toolbar className='justify-content-between'>
-          <img src={logo} alt='reduxMart logo' style={{ width: "20%" }} />
+          <img src={logo} alt='reduxMart logo' style={{ width: "35%" }} />
 
           <div className='d-flex'>
             <UserFirstChar />

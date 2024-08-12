@@ -190,7 +190,7 @@ p {
 }
 
 .MuiDrawer-paper,
-.css-hyum1k-MuiToolbar-root {
+.MuiToolbar-root {
   background: #000 !important;
 }
 
@@ -330,7 +330,8 @@ ul.MuiList-root.MuiList-padding.css-h4y409-MuiList-root {
 button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr-MuiButtonBase-root-MuiIconButton-root {
   color: white !important;
 }
-.MuiListItemIcon-root.css-1ddsiuw-MuiListItemIcon-root {
+.MuiListItemIcon-root,
+.MuiSvgIcon-root {
   color: white !important;
 }
 
@@ -477,6 +478,10 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
   padding: 0;
 }
 
+.MuiAppBar-root {
+  background: black;
+}
+
 @media (max-width: 600px) {
   .scroll-arrow-left,
   .scroll-arrow-right {
@@ -501,5 +506,29 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
   .scroll-arrow-right {
     right: 15%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05));
+  }
+  .banner-box img {
+    height: calc(50vh - 9.5rem);
+  }
+  .grd-btn svg {
+    font-size: 25px;
+  }
+
+  .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    min-width: 0px !important;
+    padding: 0 0 0 10px !important;
+  }
+
+  .rdxm-desc {
+    width: 100%;
+  }
+  .men-col-head {
+    left: 7%;
+    right: unset;
+  }
+  .css-1ujsas3 {
+    color: white !important;
+    /* text-decoration: underline; */
+    text-transform: capitalize !important;
   }
 }
