@@ -486,6 +486,14 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
   --bs-gutter-x: 0rem !important;
 }
 
+.MuiIconButton-edgeStart {
+  display: contents;
+}
+
+.top-box .MuiIconButton-edgeStart {
+  justify-content: flex-start;
+}
+
 @media (max-width: 600px) {
   .scroll-arrow-left,
   .scroll-arrow-right {

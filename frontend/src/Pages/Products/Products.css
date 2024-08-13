@@ -485,7 +485,7 @@
 .prodDesc {
   flex: 1 1 0%;
 }
-.thumbnailImage {
+.thumbnailImage {k
   display: flex;
   color: #dfc3eb;
   margin: 0 2rem;

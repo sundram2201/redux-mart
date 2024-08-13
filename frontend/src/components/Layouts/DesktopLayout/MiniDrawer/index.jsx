@@ -136,7 +136,7 @@ export default function index({ navigate, userData }) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position='fixed' open={open}>
-        <Toolbar className='justify-content-between'>
+        <Toolbar className='justify-content-between top-box'>
           <IconButton
             color='inherit'
             aria-label='open drawer'
