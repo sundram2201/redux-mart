@@ -18,7 +18,7 @@ const ProductCard = ({ el, i, isInCart, isInFav }) => {
   const userData = useUserData();
   const userId = userData?.user?._id;
 
-  const ShortDesc = (val) => (val.length > 80 ? `${val.slice(0, 80)}...` : val);
+  const ShortDesc = (val) => (val.length > 75 ? `${val.slice(0, 75)}...` : val);
 
   const responsive = {
     superLargeDesktop: {

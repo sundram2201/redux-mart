@@ -367,7 +367,7 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
 .banner-box img {
   box-shadow: 0px 0px 35px rgba(123, 61, 246, 0.15) !important;
   border-radius: 20px;
-  height: calc(100vh - 9.5rem);
+  height: calc(82vh - 9.5rem);
   object-fit: cover;
 }
 

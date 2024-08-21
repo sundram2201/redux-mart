@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 8080;
+const { default: mongoose } = require("mongoose");
 
 const cors = require("cors");
 
@@ -38,6 +39,26 @@ app.use("/api/v1/product", ProductRoute);
 app.use("/api/v1/payment", PaymentRoute);
 
 app.get("/", (_, res) => res.send(`Welcome to port : ${port}`));
+
+// Get all collections of existing database
+// app.get("/collections", async (req, res) => {
+//   try {
+//     const db = mongoose.connection.db;
+//     const collections = await db.listCollections().toArray();
+//     const result = {};
+
+//     // Loop through each collection and get all documents
+//     for (const collection of collections) {
+//       const col = db.collection(collection.name);
+//       const documents = await col.find({}).toArray();
+//       result[collection.name] = documents;
+//     }
+
+//     res.json(result);
+//   } catch (error) {
+//     res.status(500).send(error.message);
+//   }
+// });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
