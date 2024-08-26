@@ -34,8 +34,10 @@ Redux Mart is an e-commerce project developed using the MERN stack. This applica
 - **JWT**: JSON Web Tokens for user authentication.
 - **Stripe**: Payment processing.
 
-## Dummy environment variables
+## Example Environment variables
 
+```
 - MONGO_URI=your_mongodb_uri
 - JWT_SECRET=your_jwt_secret
 - STRIPE_SECRET_KEY=your_stripe_secret_key
+```
