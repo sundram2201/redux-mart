@@ -19,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import logo from "../../../../../public/RM-logo.png";
 import { Link } from "react-router-dom";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import LoginIcon from "@mui/icons-material/Login";
 import {
   ShoppingCartOutlined as ShoppingCartOutlinedIcon,
   AddOutlined as AddOutlinedIcon,
@@ -63,7 +64,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" })(({ theme, open }) => ({
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
@@ -83,7 +86,11 @@ const MENU_ITEMS = [
   { label: "Profile", icon: <AccountCircleOutlinedIcon />, route: "/profile" },
   { label: "Add Product", icon: <AddOutlinedIcon />, route: "/add-product" },
   { label: "Cart", icon: <ShoppingCartOutlinedIcon />, route: "/cart" },
-  { label: "Favourites", icon: <FavoriteBorderOutlinedIcon />, route: "/favourites" },
+  {
+    label: "Favourites",
+    icon: <FavoriteBorderOutlinedIcon />,
+    route: "/favourites",
+  },
 ];
 
 export default function index({ navigate, userData }) {
@@ -94,7 +101,12 @@ export default function index({ navigate, userData }) {
   const handleDrawerToggle = () => setOpen((prevOpen) => !prevOpen);
 
   const handleNavigation = (route) => {
-    if (route === "/profile" || route === "/add-product" || route === "/cart" || route === "/favourites") {
+    if (
+      route === "/profile" ||
+      route === "/add-product" ||
+      route === "/cart" ||
+      route === "/favourites"
+    ) {
       PrivateNavigation(route, "navigation", navigate);
     } else {
       navigate(route);
@@ -102,7 +114,9 @@ export default function index({ navigate, userData }) {
   };
 
   const isLoggedIn = hasToken();
-  const userInitial = isLoggedIn ? userData?.user?.fullname?.charAt(0).toUpperCase() : "G";
+  const userInitial = isLoggedIn
+    ? userData?.user?.fullname?.charAt(0).toUpperCase()
+    : "G";
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -135,63 +149,108 @@ export default function index({ navigate, userData }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position='fixed' open={open}>
-        <Toolbar className='justify-content-between top-box'>
-          <IconButton
-            color='inherit'
-            aria-label='open drawer'
-            onClick={handleDrawerToggle}
-            edge='start'
-            sx={{ marginRight: 5, ...(open && { display: "none" }) }}>
-            <MenuIcon />
-          </IconButton>
-          <Link to='/' className='navbar-brand wlcm-head'>
-            <img src={logo} alt='reduxMart logo' />
+      <AppBar position="fixed" open={open}>
+        <Toolbar className="justify-content-between top-box">
+          {isLoggedIn ? (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+              edge="start"
+              sx={{ marginRight: 5, ...(open && { display: "none" }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+          ) : (
+            ""
+          )}
+          <Link to="/" className="navbar-brand wlcm-head">
+            <img src={logo} alt="reduxMart logo" />
           </Link>
-          <Typography noWrap component='div'>
-            <div className='d-flex justify-content-center align-items-center'>
-              <div className='me-4'>
-                <Tooltip title={isLoggedIn ? userData?.user?.fullname : "Guest"} arrow>
-                  <button onClick={() => handleNavigation("/profile")} className='user-link'>
+          <Typography noWrap component="div">
+            <div className="d-flex justify-content-center align-items-center">
+              <div className="me-4">
+                <Tooltip
+                  title={isLoggedIn ? userData?.user?.fullname : "Guest"}
+                  arrow
+                >
+                  <button
+                    onClick={() => handleNavigation("/profile")}
+                    className="user-link"
+                  >
                     {userInitial}
                   </button>
                 </Tooltip>
               </div>
-              <div className='bg-dark'>
-                <button className='grd-btn' onClick={isLoggedIn ? handleLogout : () => navigate("/login")}>
-                  <LogoutOutlinedIcon /> {isLoggedIn ? "Logout" : "Login"}
+              <div className="bg-dark">
+                <button
+                  className="grd-btn"
+                  onClick={isLoggedIn ? handleLogout : () => navigate("/login")}
+                >
+                  {isLoggedIn ? (
+                    <>
+                      Logout <LogoutOutlinedIcon />
+                    </>
+                  ) : (
+                    <>
+                      Login <LoginIcon />
+                    </>
+                  )}
                 </button>
               </div>
             </div>
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant='permanent' open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerToggle}>
-            {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {MENU_ITEMS.map(({ label, icon, route }, index) => (
-            <ListItem key={label} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                onClick={() => handleNavigation(route)}
-                sx={{ minHeight: 48, justifyContent: open ? "initial" : "center", px: 2.5 }}>
-                <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : "auto", justifyContent: "center" }}>
-                  {icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={<Typography style={{ fontWeight: "bold" }}>{label}</Typography>}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-      </Drawer>
+      {isLoggedIn ? (
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerToggle}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {MENU_ITEMS.map(({ label, icon, route }, index) => (
+              <ListItem key={label} disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  onClick={() => handleNavigation(route)}
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Typography style={{ fontWeight: "bold" }}>
+                        {label}
+                      </Typography>
+                    }
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+        </Drawer>
+      ) : (
+        ""
+      )}
     </Box>
   );
 }

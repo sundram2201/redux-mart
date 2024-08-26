@@ -6,6 +6,7 @@ import useSmScreen from "../../components/Hooks/useSmSceen";
 import MainScreen from "./MainScreen";
 import NewArrivals from "./NewArrivals";
 import Collections from "./Collections";
+import Footer from "./Footer";
 
 const index = () => {
   const [allProducts, setAllProducts] = useState({ loading: true, data: null });
@@ -52,14 +53,20 @@ const index = () => {
   }, []);
 
   return (
-    <div className='container'>
+    <div className="container">
       <MainScreen styles={styles} />
-      <hr className='my-5 text-white' />
-      <NewArrivals styles={styles} isSMallScreen={isSMallScreen} allProducts={allProducts} />
-      <hr className='my-5 text-white' />
+      <hr className="my-5 text-white" />
+      <NewArrivals
+        styles={styles}
+        isSMallScreen={isSMallScreen}
+        allProducts={allProducts}
+      />
+      <hr className="my-5 text-white" />
       <Collections styles={styles} />
-      <hr className='my-5 text-white' />
+      <hr className="my-5 text-white" />
       <Products styles={styles} />
+      <hr className="mt-5 text-white" />
+      <Footer />
     </div>
   );
 };

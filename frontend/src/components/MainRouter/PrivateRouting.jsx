@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom";
 import Layout from "../Layouts";
-import toast from "react-hot-toast";
+import { hasToken } from "../../Utils/HelperFunctions";
 
 const Private = ({ children }) => {
-  const hasToken = localStorage.getItem("token");
+  const isLoggedIn = hasToken();
 
-  return hasToken ? <Layout>{children}</Layout> : <Navigate to='/login' />;
+  return isLoggedIn ? <Layout>{children}</Layout> : <Navigate to="/login" />;
 };
 
 export default Private;

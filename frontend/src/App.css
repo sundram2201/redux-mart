@@ -170,7 +170,8 @@ p {
   border-radius: 2em;
   padding: 10px;
   background-color: #191919;
-  box-shadow: 7px 7px 17px rgba(0, 0, 0, 0.4), -7px -7px 17px rgba(255, 255, 255, 0.05);
+  box-shadow: 7px 7px 17px rgba(0, 0, 0, 0.4),
+    -7px -7px 17px rgba(255, 255, 255, 0.05);
 }
 
 .del-btn {
@@ -279,7 +280,8 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
   z-index: 1000;
   margin-left: 2%;
   border-radius: 14px;
-  box-shadow: rgba(123, 61, 246, 0.4) 0px 3px 12px, rgba(183, 0, 255, 0.4) 0px 3px 12px;
+  box-shadow: rgba(123, 61, 246, 0.4) 0px 3px 12px,
+    rgba(183, 0, 255, 0.4) 0px 3px 12px;
 }
 
 .MuiButtonBase-root {
@@ -552,4 +554,12 @@ button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.css-78trlr
   .women-col-head {
     font-size: 2rem;
   }
+}
+
+.hover-shine {
+  filter: brightness(0.5);
+}
+
+.hover-shine:hover {
+  filter: brightness(1);
 }
